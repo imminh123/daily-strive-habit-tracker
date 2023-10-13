@@ -4,6 +4,7 @@ import { HomeController, appKeyValidator } from "@/components/home";
 import { UserController } from "@/components/user/controller";
 import { sanitizer } from "@/helpers";
 import { userRouter } from "./user";
+import { TopicController } from "@/components/topic/controller";
 
 export const appRouter = t.router({
   sayHi: t.procedure.query(() => {
@@ -34,5 +35,9 @@ router.get("/", sanitizer(appKeyValidator), HomeController.getAppInfo);
 // Users
 router.get("/users", sanitizer(appKeyValidator), UserController.getUsers);
 router.post("/users", sanitizer(appKeyValidator), UserController.createUser);
+
+//Topics
+router.get("/topics", sanitizer(appKeyValidator), TopicController.getTopics);
+router.post("/topics", sanitizer(appKeyValidator), TopicController.createTopic);
 
 export default router;
