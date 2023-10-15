@@ -35,6 +35,11 @@ router.get("/", sanitizer(appKeyValidator), HomeController.getAppInfo);
 // Users
 router.get("/users", sanitizer(appKeyValidator), UserController.getUsers);
 router.post("/users", sanitizer(appKeyValidator), UserController.createUser);
+router.delete(
+  "/users/:id",
+  sanitizer(appKeyValidator),
+  UserController.deleteUser,
+);
 
 //Topics
 router.get("/topics", sanitizer(appKeyValidator), TopicController.getTopics);

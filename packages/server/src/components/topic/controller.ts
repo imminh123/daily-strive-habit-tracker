@@ -10,7 +10,6 @@ export class TopicController {
    */
   static getTopics = async (req: Req, res: Res, next: NextFn) => {
     try {
-      console.log("get topics controllersssssssssss");
       const topicServices = new TopicServices();
       const result = await topicServices.getTopics();
 
@@ -35,7 +34,6 @@ export class TopicController {
   static deleteTopic = async (req: Req, res: Res, next: NextFn) => {
     const body = req.body;
     try {
-      console.log("topic controllerrrrrrrrrrrrrr");
       const topicServices = new TopicServices();
       const result = await topicServices.deleteTopic(req.params.id);
 

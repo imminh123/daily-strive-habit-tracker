@@ -30,4 +30,17 @@ export class UserController {
       next(error);
     }
   };
+
+  static deleteUser = async (req: Req, res: Res, next: NextFn) => {
+    const body = req.body;
+    try {
+      const topicServices = new UserServices();
+      const result = await topicServices.deleteUser(req.params.id);
+
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      console.log("something went wrong deleting");
+      next(error);
+    }
+  };
 }
