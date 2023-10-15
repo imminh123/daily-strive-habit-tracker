@@ -22,7 +22,6 @@ export class TopicServices {
   };
 
   deleteTopic = (_id: String): Promise<ITopic | null> => {
-    //const query = {_id: _id};
     return this.topicRepository.delete(_id);
   };
 }

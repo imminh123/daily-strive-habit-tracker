@@ -1,35 +1,31 @@
-/* import mongoose from "mongoose";
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 export interface ITask {
-    firstname: string;
-    lastname: string;
-    email: string;
-    profile: string;
-    password: string;
-  }
-  
-  const TaskSchema = new Schema<ITask>(
-    {
-      firstname: String,
-      lastname: String,
-      email: {
-        required: true,
-        type: String,
-      },
-      profile: String,
-      password: String,
-    },
-    {
-      timestamps: true,
-      virtuals: {
-        fullname: {
-          get() {
-            return this.firstname + " " + this.lastname;
-          },
-        },
-      },
-    },
-  );
-  
-  export const UserModel = mongoose.model("User", UserSchema); */
+  name: string;
+  currentProgress: Number;
+  maxProgress: Number;
+  description: string;
+  notificationToggle: boolean;
+  notificationMinute: Number;
+  notificationHour: Number;
+  notificationDay: Number;
+}
+
+const TaskSchema = new Schema<ITask>(
+  {
+    name: String,
+    currentProgress: Number,
+    maxProgress: Number,
+    description: String,
+    notificationToggle: Boolean,
+    notificationMinute: Number,
+    notificationHour: Number,
+    notificationDay: Number,
+  },
+  {
+    timestamps: true,
+  },
+);
+
+export const TaskModel = mongoose.model("Task", TaskSchema);

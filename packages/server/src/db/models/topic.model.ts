@@ -9,6 +9,9 @@ export interface ITopic {
 const TopicSchema = new Schema<ITopic>({
   name: String,
   progress: Number,
-});
+}, 
+{
+  timestamps: true,
+},);
 
 export const TopicModel = mongoose.model("Topic", TopicSchema);
