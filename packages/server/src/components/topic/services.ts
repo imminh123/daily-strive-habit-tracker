@@ -20,4 +20,9 @@ export class TopicServices {
   createTopic = (data: ITopic): Promise<ITopic | null> => {
     return this.topicRepository.create(data);
   };
+
+  deleteTopic = (_id: String): Promise<ITopic | null> => {
+    //const query = {_id: _id};
+    return this.topicRepository.delete(_id);
+  };
 }

@@ -40,4 +40,10 @@ router.post("/users", sanitizer(appKeyValidator), UserController.createUser);
 router.get("/topics", sanitizer(appKeyValidator), TopicController.getTopics);
 router.post("/topics", sanitizer(appKeyValidator), TopicController.createTopic);
 
+router.delete(
+  "/topics/:id",
+  sanitizer(appKeyValidator),
+  TopicController.deleteTopic,
+);
+
 export default router;

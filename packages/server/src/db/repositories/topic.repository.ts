@@ -37,7 +37,7 @@ export class TopicRepository {
   }
 
   // delete a Topic
-  async delete(id: string): Promise<ITopic | null> {
+  async delete(id: String): Promise<ITopic | null> {
     return this.model.findByIdAndDelete(id).exec();
   }
 }
