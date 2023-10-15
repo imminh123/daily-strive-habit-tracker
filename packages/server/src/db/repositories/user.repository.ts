@@ -26,6 +26,11 @@ export class UserRepository {
     return this.model.findById(id).exec();
   }
 
+  // find a User by email
+  async findByEmail(email: string): Promise<IUser | null> {
+    return this.model.findOne({ email }).exec();
+  }
+
   // find a User by username
   async findByUsername(username: string): Promise<IUser | null> {
     return this.model.findOne({ username }).exec();

@@ -3,6 +3,7 @@ import { adminProcedure, t } from "../trpc";
 import { HomeController, appKeyValidator } from "@/components/home";
 import { UserController } from "@/components/user/controller";
 import { sanitizer } from "@/helpers";
+import { signInCheck } from "@/middlewares/signInCheck";
 import { userRouter } from "./user";
 
 export const appRouter = t.router({
@@ -32,7 +33,18 @@ const router = Router();
 router.get("/", sanitizer(appKeyValidator), HomeController.getAppInfo);
 
 // Users
-router.get("/users", sanitizer(appKeyValidator), UserController.getUsers);
+router.get(
+  "/users",
+  signInCheck,
+  sanitizer(appKeyValidator),
+  UserController.getUsers,
+);
 router.post("/users", sanitizer(appKeyValidator), UserController.createUser);
-
+router.post("/signin", sanitizer(appKeyValidator), UserController.signInUser);
+router.delete(
+  "/signout",
+  signInCheck,
+  sanitizer(appKeyValidator),
+  UserController.signOutUser,
+);
 export default router;

@@ -1,5 +1,6 @@
 import { UserRepository } from "@/db/repositories/user.repository";
 import { IUser, UserModel } from "@/db/models/user.model";
+import { hash, compare } from "@/utils/crypt";
 
 export class UserServices {
   userRepository!: UserRepository;
@@ -17,7 +18,27 @@ export class UserServices {
     return this.userRepository.find({});
   };
 
-  createUser = (data: IUser): Promise<IUser | null> => {
-    return this.userRepository.create(data);
+  createUser = async (data: IUser): Promise<IUser | null> => {
+    const res = { ...data, password: await hash(data.password) };
+    return this.userRepository.create(res);
+  };
+
+  findUser = (email: IUser["email"]): Promise<IUser | null> => {
+    return this.userRepository.findByEmail(email);
+  };
+  // find and match user by email and password
+  matchUser = async (
+    email: IUser["email"],
+    password: IUser["password"],
+  ): Promise<IUser | null> => {
+    const foundUser = await this.userRepository.findByEmail(email);
+    if (foundUser == null) {
+      return null;
+    }
+    if (await compare(password, foundUser.password)) {
+      return foundUser;
+    } else {
+      return null;
+    }
   };
 }
