@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 const { Schema } = mongoose;
 
 export interface ITask {
@@ -10,6 +10,8 @@ export interface ITask {
   notificationMinute: Number;
   notificationHour: Number;
   notificationDay: Number;
+  user: ObjectId;
+  topic: ObjectId;
 }
 
 const TaskSchema = new Schema<ITask>(
@@ -22,6 +24,8 @@ const TaskSchema = new Schema<ITask>(
     notificationMinute: Number,
     notificationHour: Number,
     notificationDay: Number,
+    user: { type: Schema.Types.ObjectId, ref: "User" },
+    topic: { type: Schema.Types.ObjectId, ref: "Topic" },
   },
   {
     timestamps: true,
