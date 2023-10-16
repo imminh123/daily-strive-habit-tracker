@@ -32,7 +32,6 @@ export class UserController {
   };
 
   static deleteUser = async (req: Req, res: Res, next: NextFn) => {
-    const body = req.body;
     try {
       const topicServices = new UserServices();
       const result = await topicServices.deleteUser(req.params.id);

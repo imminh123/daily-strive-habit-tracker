@@ -32,7 +32,6 @@ export class TopicController {
   };
 
   static deleteTopic = async (req: Req, res: Res, next: NextFn) => {
-    const body = req.body;
     try {
       const topicServices = new TopicServices();
       const result = await topicServices.deleteTopic(req.params.id);

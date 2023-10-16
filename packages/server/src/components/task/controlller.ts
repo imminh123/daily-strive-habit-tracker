@@ -32,7 +32,6 @@ export class TaskController {
   };
 
   static deleteTask = async (req: Req, res: Res, next: NextFn) => {
-    const body = req.body;
     try {
       const taskServices = new TaskServices();
       const result = await taskServices.deleteTask(req.params.id);
