@@ -22,6 +22,8 @@ export const createApp = (): express.Application => {
   app.use(
     session({
       secret: `${CONFIG.APP.SESSION_SECRET}`,
+      resave: false,
+      saveUninitialized: false,
       cookie: {
         sameSite: "strict",
       },
