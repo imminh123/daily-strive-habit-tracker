@@ -20,4 +20,8 @@ export class UserServices {
   createUser = (data: IUser): Promise<IUser | null> => {
     return this.userRepository.create(data);
   };
+
+  deleteUser = (_id: String): Promise<IUser | null> => {
+    return this.userRepository.delete(_id);
+  };
 }

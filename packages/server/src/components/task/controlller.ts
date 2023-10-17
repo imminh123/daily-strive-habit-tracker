@@ -1,17 +1,17 @@
 import { OK } from "http-status/lib";
-import { UserServices } from "./services";
+import { TaskServices } from "./services";
 import { apiResponse } from "@/helpers/apiResponse";
 
-export class UserController {
+export class TaskController {
   /**
    * @description Gets the API information.
    * @param {Req} req
    * @param {Res} res
    */
-  static getUsers = async (req: Req, res: Res, next: NextFn) => {
+  static getTasks = async (req: Req, res: Res, next: NextFn) => {
     try {
-      const userServices = new UserServices();
-      const result = await userServices.getUsers();
+      const taskServices = new TaskServices();
+      const result = await taskServices.getTasks();
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {
@@ -19,11 +19,11 @@ export class UserController {
     }
   };
 
-  static createUser = async (req: Req, res: Res, next: NextFn) => {
+  static createTask = async (req: Req, res: Res, next: NextFn) => {
     const body = req.body;
     try {
-      const userServices = new UserServices();
-      const result = await userServices.createUser(body);
+      const taskServices = new TaskServices();
+      const result = await taskServices.createTask(body);
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {
@@ -31,10 +31,10 @@ export class UserController {
     }
   };
 
-  static deleteUser = async (req: Req, res: Res, next: NextFn) => {
+  static deleteTask = async (req: Req, res: Res, next: NextFn) => {
     try {
-      const topicServices = new UserServices();
-      const result = await topicServices.deleteUser(req.params.id);
+      const taskServices = new TaskServices();
+      const result = await taskServices.deleteTask(req.params.id);
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {
