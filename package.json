@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "lerna run start"
+    "start-all": "lerna run start"
   },
   "devDependencies": {
     "husky": "^8.0.3",

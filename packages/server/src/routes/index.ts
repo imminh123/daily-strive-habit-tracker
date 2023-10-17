@@ -5,6 +5,8 @@ import { UserController } from "@/components/user/controller";
 import { sanitizer } from "@/helpers";
 import { signInCheck } from "@/middlewares/signInCheck";
 import { userRouter } from "./user";
+import { TopicController } from "@/components/topic/controller";
+import { TaskController } from "@/components/task/controlller";
 
 export const appRouter = t.router({
   sayHi: t.procedure.query(() => {
@@ -46,5 +48,30 @@ router.delete(
   signInCheck,
   sanitizer(appKeyValidator),
   UserController.signOutUser,
+);
+router.delete(
+  "/users/:id",
+  sanitizer(appKeyValidator),
+  UserController.deleteUser,
+);
+
+//Topics
+router.get("/topics", sanitizer(appKeyValidator), TopicController.getTopics);
+router.post("/topics", sanitizer(appKeyValidator), TopicController.createTopic);
+
+router.delete(
+  "/topics/:id",
+  sanitizer(appKeyValidator),
+  TopicController.deleteTopic,
+);
+
+//Tasks
+router.get("/tasks", sanitizer(appKeyValidator), TaskController.getTasks);
+router.post("/tasks", sanitizer(appKeyValidator), TaskController.createTask);
+
+router.delete(
+  "/tasks/:id",
+  sanitizer(appKeyValidator),
+  TaskController.deleteTask,
 );
 export default router;
