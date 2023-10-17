@@ -18,7 +18,10 @@ const UserSchema = new Schema<IUser>(
       type: String,
     },
     profile: String,
-    password: String,
+    password: {
+      required: true,
+      type: String,
+    },
   },
   {
     timestamps: true,
