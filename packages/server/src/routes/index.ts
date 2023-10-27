@@ -41,25 +41,39 @@ router.delete(
   sanitizer(appKeyValidator),
   UserController.deleteUser,
 );
+router.put(
+  "/users/:id",
+  sanitizer(appKeyValidator),
+  UserController.updateUser,
+);
 
 //Topics
 router.get("/topics", sanitizer(appKeyValidator), TopicController.getTopics);
 router.post("/topics", sanitizer(appKeyValidator), TopicController.createTopic);
-
 router.delete(
   "/topics/:id",
   sanitizer(appKeyValidator),
   TopicController.deleteTopic,
 );
+router.put(
+  "/topics/:id",
+  sanitizer(appKeyValidator),
+  TopicController.updateTopic,
+);
 
 //Tasks
 router.get("/tasks", sanitizer(appKeyValidator), TaskController.getTasks);
 router.post("/tasks", sanitizer(appKeyValidator), TaskController.createTask);
-
 router.delete(
   "/tasks/:id",
   sanitizer(appKeyValidator),
   TaskController.deleteTask,
 );
+router.put(
+  "/tasks/:id",
+  sanitizer(appKeyValidator),
+  TaskController.updateTask,
+);
+
 
 export default router;

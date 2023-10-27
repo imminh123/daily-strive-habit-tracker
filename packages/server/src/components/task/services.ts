@@ -24,4 +24,7 @@ export class TaskServices {
   deleteTask = (_id: String): Promise<ITask | null> => {
     return this.taskRepository.delete(_id);
   };
+  updateTask = (_id: string, data: ITask): Promise<ITask | null> => {
+    return this.taskRepository.update(_id, data);
+  };
 }

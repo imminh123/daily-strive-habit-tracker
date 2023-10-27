@@ -42,4 +42,17 @@ export class TopicController {
       next(error);
     }
   };
+
+  static updateTopic = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const body = req.body;
+      const userServices = new TopicServices();
+      const result = await userServices.updateTopic(req.params.id, body);
+
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      console.log("something went wrong updating");
+      next(error);
+    }
+  };
 }
