@@ -6,6 +6,7 @@ import { sanitizer } from "@/helpers";
 import { userRouter } from "./user";
 import { TopicController } from "@/components/topic/controller";
 import { TaskController } from "@/components/task/controlller";
+import { UserTaskController } from "@/components/userTask/controlller";
 
 export const appRouter = t.router({
   sayHi: t.procedure.query(() => {
@@ -41,11 +42,7 @@ router.delete(
   sanitizer(appKeyValidator),
   UserController.deleteUser,
 );
-router.put(
-  "/users/:id",
-  sanitizer(appKeyValidator),
-  UserController.updateUser,
-);
+router.put("/users/:id", sanitizer(appKeyValidator), UserController.updateUser);
 
 //Topics
 router.get("/topics", sanitizer(appKeyValidator), TopicController.getTopics);
@@ -69,11 +66,28 @@ router.delete(
   sanitizer(appKeyValidator),
   TaskController.deleteTask,
 );
-router.put(
-  "/tasks/:id",
-  sanitizer(appKeyValidator),
-  TaskController.updateTask,
-);
+router.put("/tasks/:id", sanitizer(appKeyValidator), TaskController.updateTask);
 
+//User Tasks
+router.get(
+  "/userTasks",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasks,
+);
+router.post(
+  "/userTasks",
+  sanitizer(appKeyValidator),
+  UserTaskController.createUserTask,
+);
+router.delete(
+  "/userTasks/:id",
+  sanitizer(appKeyValidator),
+  UserTaskController.deleteUserTask,
+);
+router.put(
+  "/userTasks/:id",
+  sanitizer(appKeyValidator),
+  UserTaskController.updateUserTask,
+);
 
 export default router;
