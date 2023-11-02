@@ -19,6 +19,17 @@ export class UserTaskController {
     }
   };
 
+  static getUserTasksByUserId = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const userTaskServices = new UserTaskServices();
+      const result = await userTaskServices.getUserTasksByUserId(req.params.id);
+
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      next(error);
+    }
+  };
+
   static createUserTask = async (req: Req, res: Res, next: NextFn) => {
     const body = req.body;
     try {

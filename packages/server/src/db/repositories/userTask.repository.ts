@@ -18,6 +18,15 @@ export class UserTaskRepository {
     filters: FilterQuery<IUserTask>,
     options?: QueryOptions,
   ): Promise<IUserTask[] | null> {
+    console.log(
+      "🚀 ~ file: userTask.repository.ts:21 ~ UserTaskRepository ~ options:",
+      options,
+    );
+    console.log(
+      "🚀 ~ file: userTask.repository.ts:21 ~ UserTaskRepository ~ filters:",
+      filters,
+    );
+
     return this.model.find(filters, null, options).exec();
   }
 

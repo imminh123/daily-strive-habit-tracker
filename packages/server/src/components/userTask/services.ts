@@ -17,6 +17,15 @@ export class UserTaskServices {
     return this.userTaskRepository.find({});
   };
 
+  getUserTasksByUserId = (userId: String): Promise<IUserTask[] | null> => {
+    console.log(
+      "🚀 ~ file: services.ts:21 ~ UserTaskServices ~ userId:",
+      userId,
+    );
+
+    return this.userTaskRepository.find({ user: userId }); //not sure if it has to be _id??
+  };
+
   createUserTask = (data: IUserTask): Promise<IUserTask | null> => {
     return this.userTaskRepository.create(data);
   };

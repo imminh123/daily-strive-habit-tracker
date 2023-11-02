@@ -7,11 +7,9 @@ export interface ITask {
   maxProgress: Number;
   description: string;
   notificationToggle: boolean;
-  notificationMinute: Number;
-  notificationHour: Number;
-  notificationDay: Number;
-  user: ObjectId;
+  notificationTime: Date;
   topic: ObjectId;
+  completed: boolean;
 }
 
 const TaskSchema = new Schema<ITask>(
@@ -21,11 +19,9 @@ const TaskSchema = new Schema<ITask>(
     maxProgress: Number,
     description: String,
     notificationToggle: Boolean,
-    notificationMinute: Number,
-    notificationHour: Number,
-    notificationDay: Number,
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    notificationTime: Date,
     topic: { type: Schema.Types.ObjectId, ref: "Topic" },
+    completed: Boolean,
   },
   {
     timestamps: true,
