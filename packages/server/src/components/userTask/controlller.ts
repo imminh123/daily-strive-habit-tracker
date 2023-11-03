@@ -19,12 +19,36 @@ export class UserTaskController {
     }
   };
 
-  static getUserTasksByUserId = async (req: Req, res: Res, next: NextFn) => {
+  static getUserTasksByUserId = async (req: Req, res: Res, next: NextFn) => {//maybe rename it to getUserTasksForUser
     try {
       const userTaskServices = new UserTaskServices();
       const result = await userTaskServices.getUserTasksByUserId(req.params.id);
 
       res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static getUserTasksByNameForUser = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      
+      const userTaskServices = new UserTaskServices();
+      const userTasks = await userTaskServices.getUserTasksByUserId(req.params.id);
+      const resultFilteredByName = userTasks?.filter(userTask => userTask.name.includes(req.params.taskName));
+      res.status(OK).json(apiResponse(resultFilteredByName));
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static getUserTasksByDescriptionForUser = async (req: Req, res: Res, next: NextFn) => {// this one gets by keyword in description
+    try {
+      
+      const userTaskServices = new UserTaskServices();
+      const userTasks = await userTaskServices.getUserTasksByUserId(req.params.id);
+      const resultFilteredByDescription = userTasks?.filter(userTask => userTask.description.includes(req.params.description));
+      res.status(OK).json(apiResponse(resultFilteredByDescription));
     } catch (error) {
       next(error);
     }

@@ -40,6 +40,8 @@ export class UserTaskRepository {
     return this.model.findOne({ userTaskname }).exec();
   }
 
+  
+
   // update a UserTask
   async update(id: string, data: IUserTask): Promise<IUserTask | null> {
     return this.model.findByIdAndUpdate(id, data, { new: true }).exec();

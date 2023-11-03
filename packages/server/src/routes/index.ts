@@ -79,6 +79,16 @@ router.get(
   sanitizer(appKeyValidator),
   UserTaskController.getUserTasksByUserId,
 );
+router.get(
+  "/userTasksByNameForUser/:id/:taskName",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasksByNameForUser,
+);
+router.get(
+  "/userTasksByDescriptionForUser/:id/:description",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasksByDescriptionForUser,
+);
 router.post(
   "/userTasks",
   sanitizer(appKeyValidator),
