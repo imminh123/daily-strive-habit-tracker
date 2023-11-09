@@ -89,6 +89,16 @@ router.get(
   sanitizer(appKeyValidator),
   UserTaskController.getUserTasksByDescriptionForUser,
 );
+router.get(
+  "/dailyProgress/:id/",
+  sanitizer(appKeyValidator),
+  UserTaskController.getDailyProgress,
+);
+router.put(
+  "/completeUserTask/:id/",
+  sanitizer(appKeyValidator),
+  UserTaskController.completeUserTask,
+);
 router.post(
   "/userTasks",
   sanitizer(appKeyValidator),

@@ -4,8 +4,6 @@ const { Schema } = mongoose;
 export interface IUserTask {
   name: string;
   description: string;
-  currentProgress: Number;
-  maxProgress: Number;
   completed: boolean;
   streak: Number;
   notificationToggle: boolean;
@@ -18,8 +16,6 @@ export interface IUserTask {
 const UserTaskSchema = new Schema<IUserTask>(
   {
     name: String,
-    currentProgress: Number,
-    maxProgress: Number,
     description: String,
     notificationToggle: Boolean,
     notificationTime: Date,

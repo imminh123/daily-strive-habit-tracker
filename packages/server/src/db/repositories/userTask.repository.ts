@@ -18,15 +18,6 @@ export class UserTaskRepository {
     filters: FilterQuery<IUserTask>,
     options?: QueryOptions,
   ): Promise<IUserTask[] | null> {
-    console.log(
-      "🚀 ~ file: userTask.repository.ts:21 ~ UserTaskRepository ~ options:",
-      options,
-    );
-    console.log(
-      "🚀 ~ file: userTask.repository.ts:21 ~ UserTaskRepository ~ filters:",
-      filters,
-    );
-
     return this.model.find(filters, null, options).exec();
   }
 
@@ -40,11 +31,12 @@ export class UserTaskRepository {
     return this.model.findOne({ userTaskname }).exec();
   }
 
-  
-
   // update a UserTask
   async update(id: string, data: IUserTask): Promise<IUserTask | null> {
-    return this.model.findByIdAndUpdate(id, data, { new: true }).exec();
+    console.log("🚀 ~ file: userTask.repository.ts:36 ~ UserTaskRepository ~ update ~ data:", data)
+    console.log("REPO HERE");
+    
+    return this.model.findByIdAndUpdate(id, data, { new: true }).exec(); //should it be findoneandupdate for small updates?
   }
 
   // delete a UserTask
