@@ -42,4 +42,17 @@ export class TaskController {
       next(error);
     }
   };
+
+  static updateTask = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const body = req.body;
+      const taskServices = new TaskServices();
+      const result = await taskServices.updateTask(req.params.id, body);
+
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      console.log("something went wrong updating");
+      next(error);
+    }
+  };
 }

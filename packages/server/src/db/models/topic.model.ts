@@ -3,15 +3,15 @@ const { Schema } = mongoose;
 
 export interface ITopic {
   name: string;
-  progress: Number;
-  user: ObjectId;
+  description: string;
+  imageURL: string;
 }
 
 const TopicSchema = new Schema<ITopic>(
   {
     name: String,
-    progress: Number,
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    description: String,
+    imageURL: String,
   },
   {
     timestamps: true,

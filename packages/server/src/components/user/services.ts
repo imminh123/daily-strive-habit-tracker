@@ -18,6 +18,10 @@ export class UserServices {
     return this.userRepository.find({});
   };
 
+  getUser = (id: string): Promise<IUser | null> => {
+    return this.userRepository.findById(id);
+  };
+
   createUser = async (data: IUser): Promise<IUser | null> => {
     const res = { ...data, password: await hash(data.password) };
     return this.userRepository.create(res);
@@ -44,5 +48,9 @@ export class UserServices {
 
   deleteUser = (_id: String): Promise<IUser | null> => {
     return this.userRepository.delete(_id);
+  };
+
+  updateUser = (_id: String, data: IUser): Promise<IUser | null> => {
+    return this.userRepository.update(_id, data);
   };
 }

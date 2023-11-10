@@ -24,4 +24,7 @@ export class TopicServices {
   deleteTopic = (_id: String): Promise<ITopic | null> => {
     return this.topicRepository.delete(_id);
   };
+  updateTopic = (_id: string, data: ITopic): Promise<ITopic | null> => {
+    return this.topicRepository.update(_id, data);
+  };
 }

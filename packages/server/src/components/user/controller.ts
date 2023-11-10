@@ -20,6 +20,17 @@ export class UserController {
     }
   };
 
+  static getUser = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const userServices = new UserServices();
+      const result = await userServices.getUser(req.params.id);
+
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      next(error);
+    }
+  };
+  
   /**
    * @description Register user
    * @param {Object} req "IUser model"
@@ -85,12 +96,25 @@ export class UserController {
 
   static deleteUser = async (req: Req, res: Res, next: NextFn) => {
     try {
-      const topicServices = new UserServices();
-      const result = await topicServices.deleteUser(req.params.id);
+      const userServices = new UserServices();
+      const result = await userServices.deleteUser(req.params.id);
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {
       console.log("something went wrong deleting");
+      next(error);
+    }
+  };
+
+  static updateUser = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const body = req.body;
+      const userServices = new UserServices();
+      const result = await userServices.updateUser(req.params.id, body);
+
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      console.log("something went wrong updating");
       next(error);
     }
   };

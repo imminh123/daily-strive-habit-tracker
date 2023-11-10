@@ -7,6 +7,8 @@ import { signInCheck } from "@/middlewares/signInCheck";
 import { userRouter } from "./user";
 import { TopicController } from "@/components/topic/controller";
 import { TaskController } from "@/components/task/controlller";
+import { UserTaskController } from "@/components/userTask/controlller";
+import { LogController } from "@/components/log/controller";
 
 export const appRouter = t.router({
   sayHi: t.procedure.query(() => {
@@ -54,24 +56,92 @@ router.delete(
   sanitizer(appKeyValidator),
   UserController.deleteUser,
 );
+router.put("/users/:id", sanitizer(appKeyValidator), UserController.updateUser);
 
 //Topics
 router.get("/topics", sanitizer(appKeyValidator), TopicController.getTopics);
 router.post("/topics", sanitizer(appKeyValidator), TopicController.createTopic);
-
 router.delete(
   "/topics/:id",
   sanitizer(appKeyValidator),
   TopicController.deleteTopic,
 );
+router.put(
+  "/topics/:id",
+  sanitizer(appKeyValidator),
+  TopicController.updateTopic,
+);
 
 //Tasks
 router.get("/tasks", sanitizer(appKeyValidator), TaskController.getTasks);
 router.post("/tasks", sanitizer(appKeyValidator), TaskController.createTask);
-
 router.delete(
   "/tasks/:id",
   sanitizer(appKeyValidator),
   TaskController.deleteTask,
 );
+
+router.put("/tasks/:id", sanitizer(appKeyValidator), TaskController.updateTask);
+
+//User Tasks
+router.get(
+  "/userTasks",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasks,
+);
+router.get(
+  "/userTasksByUserId/:id",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasksByUserId,
+);
+router.get(
+  "/userTasksByNameForUser/:id/:taskName",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasksByNameForUser,
+);
+router.get(
+  "/userTasksByDescriptionForUser/:id/:description",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasksByDescriptionForUser,
+);
+router.get(
+  "/dailyProgress/:id/",
+  sanitizer(appKeyValidator),
+  UserTaskController.getDailyProgress,
+);
+router.put(
+  "/completeUserTask/:id/",
+  sanitizer(appKeyValidator),
+  UserTaskController.completeUserTask,
+);
+router.post(
+  "/userTasks",
+  sanitizer(appKeyValidator),
+  UserTaskController.createUserTask,
+);
+router.delete(
+  "/userTasks/:id",
+  sanitizer(appKeyValidator),
+  UserTaskController.deleteUserTask,
+);
+router.put(
+  "/userTasks/:id",
+  sanitizer(appKeyValidator),
+  UserTaskController.updateUserTask,
+);
+
+
+//Logs
+router.get(
+  "/logs",
+  sanitizer(appKeyValidator),
+  LogController.getLogs,
+);
+
+router.post(
+  "/logs",
+  sanitizer(appKeyValidator),
+  LogController.createLog,
+);
+
 export default router;

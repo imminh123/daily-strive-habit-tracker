@@ -37,7 +37,7 @@ export class UserRepository {
   }
 
   // update a User
-  async update(id: string, data: IUser): Promise<IUser | null> {
+  async update(id: String, data: IUser): Promise<IUser | null> {
     return this.model.findByIdAndUpdate(id, data, { new: true }).exec();
   }
 
