@@ -9,9 +9,26 @@ import { expressPinoLogger } from "./helpers";
 import { createContext } from "./context";
 import * as errorHandler from "@/middlewares/errorHandler";
 import routes, { appRouter } from "@/routes";
+import session from "express-session";
+declare module "express-session" {
+  export interface SessionData {
+    user: { [key: string]: any };
+    signed: Boolean;
+  }
+}
 export const createApp = (): express.Application => {
   const app = express();
 
+  app.use(
+    session({
+      secret: `${CONFIG.APP.SESSION_SECRET}`,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        sameSite: "strict",
+      },
+    }),
+  );
   app.use(cors());
   app.use(helmet());
   app.use(express.json());

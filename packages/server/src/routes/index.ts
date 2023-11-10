@@ -3,6 +3,7 @@ import { adminProcedure, t } from "../trpc";
 import { HomeController, appKeyValidator } from "@/components/home";
 import { UserController } from "@/components/user/controller";
 import { sanitizer } from "@/helpers";
+import { signInCheck } from "@/middlewares/signInCheck";
 import { userRouter } from "./user";
 import { TopicController } from "@/components/topic/controller";
 import { TaskController } from "@/components/task/controlller";
@@ -36,8 +37,20 @@ const router = Router();
 router.get("/", sanitizer(appKeyValidator), HomeController.getAppInfo);
 
 // Users
-router.get("/users", sanitizer(appKeyValidator), UserController.getUsers);
+router.get(
+  "/users",
+  signInCheck,
+  sanitizer(appKeyValidator),
+  UserController.getUsers,
+);
 router.post("/users", sanitizer(appKeyValidator), UserController.createUser);
+router.post("/signin", sanitizer(appKeyValidator), UserController.signInUser);
+router.delete(
+  "/signout",
+  signInCheck,
+  sanitizer(appKeyValidator),
+  UserController.signOutUser,
+);
 router.delete(
   "/users/:id",
   sanitizer(appKeyValidator),
@@ -67,6 +80,7 @@ router.delete(
   sanitizer(appKeyValidator),
   TaskController.deleteTask,
 );
+
 router.put("/tasks/:id", sanitizer(appKeyValidator), TaskController.updateTask);
 
 //User Tasks
