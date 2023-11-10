@@ -1,15 +1,17 @@
 import mongoose, { ObjectId } from "mongoose";
 const { Schema } = mongoose;
 
-export interface ITask {
+export interface ILog {
   user : ObjectId;
-  topic: ObjectId;
+  task: ObjectId;
+  completed: boolean;
 }
 
-const LogSchema = new Schema<ITask>(
+const LogSchema = new Schema<ILog>(
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
-    topic: { type: Schema.Types.ObjectId, ref: "Topic" },
+    task: { type: Schema.Types.ObjectId, ref: "Task" },
+    completed: Boolean,
   },
   {
     timestamps: true,

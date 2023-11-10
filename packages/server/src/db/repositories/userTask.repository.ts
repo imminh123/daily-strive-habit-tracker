@@ -33,9 +33,9 @@ export class UserTaskRepository {
 
   // update a UserTask
   async update(id: string, data: IUserTask): Promise<IUserTask | null> {
-    console.log("🚀 ~ file: userTask.repository.ts:36 ~ UserTaskRepository ~ update ~ data:", data)
+   
     console.log("REPO HERE");
-    
+
     return this.model.findByIdAndUpdate(id, data, { new: true }).exec(); //should it be findoneandupdate for small updates?
   }
 

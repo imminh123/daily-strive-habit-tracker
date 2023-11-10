@@ -2,6 +2,10 @@ import { OK } from "http-status/lib";
 import { UserTaskServices } from "./services";
 import { apiResponse } from "@/helpers/apiResponse";
 import { number } from "zod";
+import { LogServices } from "../log/services";
+import mongoose, { ObjectId } from "mongoose";
+import { ILog } from "@/db/models/log.model";
+import { UserServices } from "../user/services";
 
 export class UserTaskController {
   /**
@@ -108,6 +112,7 @@ export class UserTaskController {
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {
+      console.log("something went wrong creating");
       next(error);
     }
   };
@@ -142,14 +147,29 @@ export class UserTaskController {
     try {
       const userTaskId = req.params.id;
       const userTaskServices = new UserTaskServices();
-      const userTaskToBeUpdated = await userTaskServices.getUserTask(userTaskId);
-      if(userTaskToBeUpdated) 
-      {
-      userTaskToBeUpdated.completed = !userTaskToBeUpdated?.completed;
-      const result = await userTaskServices.updateUserTask(userTaskId, userTaskToBeUpdated);
-      res.status(OK).json(apiResponse(result));
+      const logServices = new LogServices();
+
+      const userTaskToBeUpdated =await userTaskServices.getUserTask(userTaskId); 
+      if (userTaskToBeUpdated) {
+        userTaskToBeUpdated.completed = !userTaskToBeUpdated?.completed;
+        const result = await userTaskServices.updateUserTask(
+          userTaskId,
+          userTaskToBeUpdated,
+        );
+        const userTask = await userTaskServices.getUserTask(userTaskId);
+  
+        const { ObjectId } = require('mongodb');
+      if(userTask){
+        const newLog: ILog = {
+          user: userTask.user, 
+          task:  new ObjectId(userTaskId), 
+          completed: userTaskToBeUpdated?.completed
+        }; 
+        logServices.createLog(newLog);
       }
-    
+        res.status(OK).json(apiResponse(result));
+      
+      }
     } catch (error) {
       console.log("something went wrong updating");
       next(error);

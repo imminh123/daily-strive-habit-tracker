@@ -32,12 +32,12 @@ export class LogRepository {
   } */
 
   // update a Log
- /*  async update(id: string, data: ILog): Promise<ILog | null> {
+  /*  async update(id: string, data: ILog): Promise<ILog | null> {
     return this.model.findByIdAndUpdate(id, data, { new: true }).exec();
   } */
 
   // delete a Log
- /*  async delete(id: String): Promise<ILog | null> {
+  /*  async delete(id: String): Promise<ILog | null> {
     return this.model.findByIdAndDelete(id).exec();
   } */
 }

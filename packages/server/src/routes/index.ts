@@ -7,6 +7,7 @@ import { userRouter } from "./user";
 import { TopicController } from "@/components/topic/controller";
 import { TaskController } from "@/components/task/controlller";
 import { UserTaskController } from "@/components/userTask/controlller";
+import { LogController } from "@/components/log/controller";
 
 export const appRouter = t.router({
   sayHi: t.procedure.query(() => {
@@ -113,6 +114,20 @@ router.put(
   "/userTasks/:id",
   sanitizer(appKeyValidator),
   UserTaskController.updateUserTask,
+);
+
+
+//Logs
+router.get(
+  "/logs",
+  sanitizer(appKeyValidator),
+  LogController.getLogs,
+);
+
+router.post(
+  "/logs",
+  sanitizer(appKeyValidator),
+  LogController.createLog,
 );
 
 export default router;

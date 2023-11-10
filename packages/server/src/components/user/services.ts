@@ -17,6 +17,10 @@ export class UserServices {
     return this.userRepository.find({});
   };
 
+  getUser = (id: string): Promise<IUser | null> => {
+    return this.userRepository.findById(id);
+  };
+
   createUser = (data: IUser): Promise<IUser | null> => {
     return this.userRepository.create(data);
   };

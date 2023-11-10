@@ -19,6 +19,17 @@ export class UserController {
     }
   };
 
+  static getUser = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const userServices = new UserServices();
+      const result = await userServices.getUser(req.params.id);
+
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      next(error);
+    }
+  };
+
   static createUser = async (req: Req, res: Res, next: NextFn) => {
     const body = req.body;
     try {
