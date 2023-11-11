@@ -16,6 +16,7 @@ declare module "express-session" {
     signed: Boolean;
   }
 }
+import schedule from "./scheduler/notification";
 export const createApp = (): express.Application => {
   const app = express();
 
@@ -58,6 +59,6 @@ export const createApp = (): express.Application => {
   // Error Middleware
   app.use(errorHandler.genericErrorHandler);
   app.use(errorHandler.notFoundError);
-
+  schedule;
   return app;
 };

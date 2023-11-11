@@ -7,6 +7,7 @@ export interface IUser {
   email: string;
   profile: string;
   password: string;
+  notification: boolean;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -21,6 +22,10 @@ const UserSchema = new Schema<IUser>(
     password: {
       required: true,
       type: String,
+    },
+    notification: {
+      type: Boolean,
+      default: true,
     },
   },
   {

@@ -32,7 +32,7 @@ export class LogController {
     }
   };
 
- /*  static deleteLog = async (req: Req, res: Res, next: NextFn) => {
+  /*  static deleteLog = async (req: Req, res: Res, next: NextFn) => {
     try {
       const logServices = new LogServices();
       const result = await logServices.deleteLog(req.params.id);

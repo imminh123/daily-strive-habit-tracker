@@ -129,13 +129,11 @@ router.put(
   sanitizer(appKeyValidator),
   UserTaskController.updateUserTask,
 );
-
-
-//Logs
+//for email notification link (temporary)
 router.get(
-  "/logs",
+  "/completeUserTask/:id/",
   sanitizer(appKeyValidator),
-  LogController.getLogs,
+  UserTaskController.completeUserTask,
 );
 
 router.post(
