@@ -43,4 +43,11 @@ export class UserTaskRepository {
   async delete(id: String): Promise<IUserTask | null> {
     return this.model.findByIdAndDelete(id).exec();
   }
+  //update multiple UserTasks
+  async updateTasks(
+    filters: FilterQuery<IUserTask>,
+    data: any,
+  ): Promise<any | null> {
+    return this.model.updateMany(filters, data, { new: true }).exec();
+  }
 }

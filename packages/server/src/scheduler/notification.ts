@@ -63,7 +63,7 @@ schedule.scheduleJob("* * * * *", async () => {
     const datetimeNow = new Date();
     const usertaskservice = new UserTaskServices();
     const tasks = await usertaskservice.findUserTasks({
-      notificationToggle: { $eq: true },
+      notificationToggle: true,
       $expr: {
         $and: [
           { $eq: [{ $hour: "$notificationTime" }, datetimeNow.getHours()] },
@@ -88,5 +88,21 @@ schedule.scheduleJob("* * * * *", async () => {
     console.log(error);
   }
 });
-
+// schedule task reset jobs in 0:00 for notifications etc.
+schedule.scheduleJob("0 0 * * *", async () => {
+  try {
+    const usertaskservice = new UserTaskServices();
+    // reset streaks
+    const updates = await usertaskservice.updateUserTasks(
+      { completed: false },
+      { $set: { streak: 0 } },
+    );
+    console.log(`Streak losses: ${updates.modifiedCount}`);
+    // reset task completions
+    await usertaskservice.updateUserTasks({}, { $set: { completed: false } });
+    console.log(`UserTask resets finalized: ${new Date()}.`);
+  } catch {
+    console.log(error);
+  }
+});
 export default { schedule };

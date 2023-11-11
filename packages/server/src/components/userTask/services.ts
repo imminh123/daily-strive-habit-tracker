@@ -45,4 +45,12 @@ export class UserTaskServices {
   ): Promise<IUserTask[] | null> => {
     return this.userTaskRepository.find(filters, options);
   };
+
+  //update multiple UserTasks
+  updateUserTasks = (
+    filters: FilterQuery<IUserTask>,
+    data: any,
+  ): Promise<any | null> => {
+    return this.userTaskRepository.updateTasks(filters, data);
+  };
 }
