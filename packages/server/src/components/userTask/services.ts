@@ -1,6 +1,6 @@
 import { UserTaskRepository } from "@/db/repositories/userTask.repository";
 import { IUserTask, UserTaskModel } from "@/db/models/userTask.model";
-
+import { FilterQuery, QueryOptions } from "mongoose";
 export class UserTaskServices {
   userTaskRepository!: UserTaskRepository;
 
@@ -37,5 +37,12 @@ export class UserTaskServices {
     data: IUserTask,
   ): Promise<IUserTask | null> => {
     return this.userTaskRepository.update(_id, data);
+  };
+
+  findUserTasks = (
+    filters: FilterQuery<IUserTask>,
+    options?: QueryOptions,
+  ): Promise<IUserTask[] | null> => {
+    return this.userTaskRepository.find(filters, options);
   };
 }

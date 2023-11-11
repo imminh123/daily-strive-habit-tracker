@@ -5,7 +5,7 @@ export interface IUserTask {
   name: string;
   description: string;
   completed: boolean;
-  streak: Number;
+  streak: number;
   notificationToggle: boolean;
   notificationTime: Date;
   isNotified: boolean;

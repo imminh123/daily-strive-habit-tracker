@@ -30,7 +30,7 @@ export class UserController {
       next(error);
     }
   };
-  
+
   /**
    * @description Register user
    * @param {Object} req "IUser model"

@@ -20,7 +20,7 @@ export class LogServices {
   createLog = (data: ILog): Promise<ILog | null> => {
     return this.logRepository.create(data);
   };
-/* 
+  /* 
   deleteLog = (_id: String): Promise<ILog | null> => {
     return this.logRepository.delete(_id);
   };

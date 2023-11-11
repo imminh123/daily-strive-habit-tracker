@@ -2,7 +2,7 @@ import mongoose, { ObjectId } from "mongoose";
 const { Schema } = mongoose;
 
 export interface ILog {
-  user : ObjectId;
+  user: ObjectId;
   task: ObjectId;
   completed: boolean;
 }

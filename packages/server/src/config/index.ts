@@ -17,6 +17,10 @@ const CONFIG = {
     ENV: process.env.NODE_ENV,
     MONGODB_URI: process.env.MONGODB_URI,
     SESSION_SECRET: process.env.SESSION_SECRET,
+    TESTEMAIL: process.env.TESTEMAIL,
+    TESTPASSWORD: process.env.TESTPASSWORD,
+    SENDGRID_APIKEY: process.env.SENDGRID_APIKEY,
+    SENGRID_SENDER: process.env.SENGRID_SENDER,
   },
   SERVER: {
     TIMEOUT: 60000, // 1m
