@@ -3,46 +3,10 @@ import Head from "next/head";
 import React from "react";
 import { TaskItem } from "@/components/pages/TaskItem";
 import Image from 'next/image';
+import { useGetListTask } from '@/features/tasks/api/getListTask';
 
 const TodoPage = () => {
-  const data = [
-    {
-      name: "Read 10 pages",
-      streak: 1,
-    },
-    {
-      name: "Spend 2 hours on assignments",
-      streak: 2,
-    },
-    {
-      name: "Study a chapter",
-      streak: 2,
-    },
-    {
-      name: "Go for a morning run",
-      streak: 2,
-    },
-    {
-      name: "Practice coding",
-      streak: 2,
-    },
-    {
-      name: "Learn Spanish",
-      streak: 2,
-    },
-    {
-      name: "Go for a morning run",
-      streak: 2,
-    },
-    {
-      name: "Practice coding",
-      streak: 2,
-    },
-    {
-      name: "Learn Spanish",
-      streak: 2,
-    },
-  ];
+  const {data: listTask} = useGetListTask()
 
   return (
     <>
@@ -95,10 +59,10 @@ const TodoPage = () => {
           className="bg-softTeal h-screen rounded-t-3xl p-4 overflow-hidden"
         >
           <ul className="mt-3 overflow-y-auto h-full" >
-            {data.map((item) => (
+            {listTask?.data.map((item: any) => (
               <TaskItem
                 key={item.name}
-                streak={item.streak}
+                streak={0}
                 title={item.name}
               />
             ))} 

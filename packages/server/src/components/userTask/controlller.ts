@@ -1,11 +1,8 @@
-import { OK } from "http-status/lib";
-import { UserTaskServices } from "./services";
-import { apiResponse } from "@/helpers/apiResponse";
-import { number } from "zod";
-import { LogServices } from "../log/services";
-import mongoose, { ObjectId } from "mongoose";
 import { ILog } from "@/db/models/log.model";
-import { UserServices } from "../user/services";
+import { apiResponse } from "@/helpers/apiResponse";
+import { OK } from "http-status/lib";
+import { LogServices } from "../log/services";
+import { UserTaskServices } from "./services";
 import CONFIG from "@/config";
 export class UserTaskController {
   /**
@@ -149,10 +146,13 @@ export class UserTaskController {
       const userTaskServices = new UserTaskServices();
       const logServices = new LogServices();
 
-      const userTaskToBeUpdated =await userTaskServices.getUserTask(userTaskId); 
+      const userTaskToBeUpdated =
+        await userTaskServices.getUserTask(userTaskId);
       if (userTaskToBeUpdated) {
         userTaskToBeUpdated.completed = !userTaskToBeUpdated?.completed;
-        userTaskToBeUpdated.streak = userTaskToBeUpdated.completed? userTaskToBeUpdated.streak + 1: userTaskToBeUpdated.streak - 1;
+        userTaskToBeUpdated.streak = userTaskToBeUpdated.completed
+          ? userTaskToBeUpdated.streak + 1
+          : userTaskToBeUpdated.streak - 1;
         const result = await userTaskServices.updateUserTask(
           userTaskId,
           userTaskToBeUpdated,
@@ -164,7 +164,7 @@ export class UserTaskController {
           const newLog: ILog = {
             user: userTask.user,
             task: new ObjectId(userTaskId),
-            completed: userTaskToBeUpdated?.completed
+            completed: userTaskToBeUpdated?.completed,
           };
           logServices.createLog(newLog);
         }

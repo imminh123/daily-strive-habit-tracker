@@ -1,61 +1,15 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
-import { api } from "@/utils/api";
-import { useEffect } from "react";
 import { Navbar } from "@/components/common/Navbar";
 import { Header } from "@/components/common/Header";
 import { Search } from "@/components/common/Search";
 import { HabitCard } from "@/components/pages/HabitCard";
 import { TaskItem } from "@/components/pages/TaskItem";
+import { useGetListTask } from "@/features/tasks/api/getListTask";
 
 export default function Home() {
-  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  async function call() {
-    // const hello = await api.secretData.query();   
-  }
+  const {data: listTask} = useGetListTask()
 
-  const data = [
-    {
-      name: "Read 10 pages",
-      streak: 1,
-    },
-    {
-      name: "Spend 2 hours on assignments",
-      streak: 2,
-    },
-    {
-      name: "Study a chapter",
-      streak: 2,
-    },
-    {
-      name: "Go for a morning run",
-      streak: 2,
-    },
-    {
-      name: "Practice coding",
-      streak: 2,
-    },
-    {
-      name: "Learn Spanish",
-      streak: 2,
-    },
-    {
-      name: "Go for a morning run",
-      streak: 2,
-    },
-    {
-      name: "Practice coding",
-      streak: 2,
-    },
-    {
-      name: "Learn Spanish",
-      streak: 2,
-    },
-  ];
-
-  useEffect(() => {
-    call();
-  });
   return (
     <>
       <Head>
@@ -113,10 +67,10 @@ export default function Home() {
           ></progress>
 
           <div className="mt-3 overflow-y-auto h-full" >
-            {data.map((item) => (
+            {listTask && listTask.data.map((item: any) => (
               <TaskItem
-                key={item.name}
-                streak={item.streak}
+                key={item.id}
+                streak={0}
                 title={item.name}
               />
             ))} 

@@ -1,32 +1,16 @@
-import { Router } from "express";
-import { adminProcedure, t } from "../trpc";
 import { HomeController, appKeyValidator } from "@/components/home";
+import { LogController } from "@/components/log/controller";
+import { TaskController } from "@/components/task/controlller";
+import { TopicController } from "@/components/topic/controller";
 import { UserController } from "@/components/user/controller";
+import { UserTaskController } from "@/components/userTask/controlller";
 import { sanitizer } from "@/helpers";
 import { signInCheck } from "@/middlewares/signInCheck";
+import { Router } from "express";
+import { t } from "../trpc";
 import { userRouter } from "./user";
-import { TopicController } from "@/components/topic/controller";
-import { TaskController } from "@/components/task/controlller";
-import { UserTaskController } from "@/components/userTask/controlller";
-import { LogController } from "@/components/log/controller";
 
 export const appRouter = t.router({
-  sayHi: t.procedure.query(() => {
-    return "Hi";
-  }),
-  log: t.procedure
-    .input((v) => {
-      if (typeof v === "string") return v;
-      throw new Error("Invalid input");
-    })
-    .mutation((req) => {
-      console.log(req.input);
-      return true;
-    }),
-  secretData: adminProcedure.query(({ ctx }) => {
-    console.log(ctx.user);
-    return "Super secret";
-  }),
   user: userRouter,
 });
 
@@ -43,7 +27,8 @@ router.get(
   sanitizer(appKeyValidator),
   UserController.getUsers,
 );
-router.post("/users", sanitizer(appKeyValidator), UserController.createUser);
+
+router.post("/register", sanitizer(appKeyValidator), UserController.createUser);
 router.post("/signin", sanitizer(appKeyValidator), UserController.signInUser);
 router.delete(
   "/signout",
@@ -136,10 +121,6 @@ router.get(
   UserTaskController.completeUserTaskEmail,
 );
 
-router.post(
-  "/logs",
-  sanitizer(appKeyValidator),
-  LogController.createLog,
-);
+router.post("/logs", sanitizer(appKeyValidator), LogController.createLog);
 
 export default router;

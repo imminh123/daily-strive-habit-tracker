@@ -51,7 +51,7 @@ export const Navbar = () => {
             placeholder="Description"
             className="input input-bordered input-primary mt-3 w-full max-w-xs"
           />
-          <div className="flex flex-col mt-2">
+          <div className="mt-2 flex flex-col">
             <div className="form-control w-52">
               <label className="label cursor-pointer">
                 <span className="label-text">Repeat</span>
@@ -94,7 +94,11 @@ export const Navbar = () => {
         <NavbarButton icon={MenuIcon} href="/todo" alt="Menu icon" />
         <PlusButton
           onClick={() =>
-            document.getElementById("create_custom_task_modal")!.showModal()
+            (
+              document.getElementById(
+                "create_custom_task_modal",
+              ) as HTMLDialogElement
+            ).showModal()
           }
         />
         <NavbarButton icon={TrophyIcon} href="/topic" alt="Trophy icon" />
