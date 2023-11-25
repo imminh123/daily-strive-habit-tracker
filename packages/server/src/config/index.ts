@@ -21,6 +21,7 @@ const CONFIG = {
     TESTPASSWORD: process.env.TESTPASSWORD,
     SENDGRID_APIKEY: process.env.SENDGRID_APIKEY,
     SENGRID_SENDER: process.env.SENGRID_SENDER,
+    APP_URI: process.env.APP_URI,
   },
   SERVER: {
     TIMEOUT: 60000, // 1m

@@ -6,7 +6,7 @@ import { LogServices } from "../log/services";
 import mongoose, { ObjectId } from "mongoose";
 import { ILog } from "@/db/models/log.model";
 import { UserServices } from "../user/services";
-
+import CONFIG from "@/config";
 export class UserTaskController {
   /**
    * @description Gets the API information.
@@ -169,6 +169,42 @@ export class UserTaskController {
           logServices.createLog(newLog);
         }
         res.status(OK).json(apiResponse(result));
+      }
+    } catch (error) {
+      console.log("something went wrong updating");
+      next(error);
+    }
+  };
+  // for email redirect google
+  static completeUserTaskEmail = async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const userTaskId = req.params.id;
+      const userTaskServices = new UserTaskServices();
+      const logServices = new LogServices();
+
+      const userTaskToBeUpdated =
+        await userTaskServices.getUserTask(userTaskId);
+      if (userTaskToBeUpdated) {
+        userTaskToBeUpdated.completed = !userTaskToBeUpdated?.completed;
+        userTaskToBeUpdated.streak = userTaskToBeUpdated.completed
+          ? userTaskToBeUpdated.streak + 1
+          : userTaskToBeUpdated.streak - 1;
+        const result = await userTaskServices.updateUserTask(
+          userTaskId,
+          userTaskToBeUpdated,
+        );
+        const userTask = await userTaskServices.getUserTask(userTaskId);
+
+        const { ObjectId } = require("mongodb");
+        if (userTask) {
+          const newLog: ILog = {
+            user: userTask.user,
+            task: new ObjectId(userTaskId),
+            completed: userTaskToBeUpdated?.completed,
+          };
+          logServices.createLog(newLog);
+        }
+        res.redirect(`${CONFIG.APP.APP_URI}`);
       }
     } catch (error) {
       console.log("something went wrong updating");

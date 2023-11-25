@@ -133,7 +133,7 @@ router.put(
 router.get(
   "/completeUserTask/:id/",
   sanitizer(appKeyValidator),
-  UserTaskController.completeUserTask,
+  UserTaskController.completeUserTaskEmail,
 );
 
 router.post(
