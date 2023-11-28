@@ -37,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "bcrypt": "^5.0.0",
+    "connect-mongo": "^5.1.0",
     "connect-timeout": "^1.9.0",
     "cors": "^2.8.3",
     "dotenv": "^16.3.1",

@@ -17,6 +17,7 @@ declare module "express-session" {
   }
 }
 import schedule from "./scheduler/notification";
+import MongoStore from "connect-mongo";
 export const createApp = (): express.Application => {
   const app = express();
 
@@ -28,6 +29,7 @@ export const createApp = (): express.Application => {
       cookie: {
         sameSite: "strict",
       },
+      store: MongoStore.create({ mongoUrl: CONFIG.APP.MONGODB_URI as string }),
     }),
   );
   app.use(cors());
