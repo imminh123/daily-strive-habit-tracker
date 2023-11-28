@@ -80,6 +80,11 @@ router.get(
   UserTaskController.getUserTasksByUserId,
 );
 router.get(
+  "/userTasksByTopicId/:id",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTasksByTopicId,
+);
+router.get(
   "/userTasksByNameForUser/:id/:taskName",
   sanitizer(appKeyValidator),
   UserTaskController.getUserTasksByNameForUser,

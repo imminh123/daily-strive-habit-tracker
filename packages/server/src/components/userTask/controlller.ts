@@ -34,11 +34,24 @@ export class UserTaskController {
   };
 
   static getUserTasksByUserId = async (req: Req, res: Res, next: NextFn) => {
-    //maybe rename it to getUserTasksForUser
     try {
       const userTaskServices = new UserTaskServices();
       const result = await userTaskServices.getUserTasksByUserId(req.params.id);
 
+      res.status(OK).json(apiResponse(result));
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static getUserTasksByTopicId = async (
+    req: Req,
+    res: Res,
+    next: NextFn,
+  ) => {
+    try {
+      const userTaskServices = new UserTaskServices();
+      const result = await userTaskServices.getUserTasksByTopicId(req.params.id);
       res.status(OK).json(apiResponse(result));
     } catch (error) {
       next(error);
@@ -97,6 +110,22 @@ export class UserTaskController {
       const dailyProgress =
         Number(numberOfCompletedTasks) / Number(numberOfTasks);
       res.status(OK).json(apiResponse(dailyProgress));
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static getNumberOfCompleteTasksPastWeek= async (req: Req, res: Res, next: NextFn) => {
+    try {
+      const userTaskServices = new UserTaskServices();
+      const userTasks = await userTaskServices.getUserTasksByUserId(
+        req.params.id,
+      );
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const result = await userTasks?.filter(ut => ut.completed == true && ut.updatedAt > sevenDaysAgo);
+
+      res.status(OK).json(apiResponse(result));
     } catch (error) {
       next(error);
     }

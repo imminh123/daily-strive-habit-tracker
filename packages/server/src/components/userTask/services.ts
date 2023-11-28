@@ -25,6 +25,10 @@ export class UserTaskServices {
     return this.userTaskRepository.find({ user: userId });
   };
 
+  getUserTasksByTopicId = (topicId: String): Promise<IUserTask[] | null> => {
+    return this.userTaskRepository.find({ topic: topicId });
+  };
+
   createUserTask = (data: IUserTask): Promise<IUserTask | null> => {
     return this.userTaskRepository.create(data);
   };
