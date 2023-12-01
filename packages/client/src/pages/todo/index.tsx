@@ -1,4 +1,4 @@
-import TaskImage from '../assets/images/taskscreen.png'
+import TaskImage from '../../assets/images/taskscreen.png'
 import Head from "next/head";
 import React from "react";
 import { TaskItem } from "@/components/pages/TaskItem";
@@ -56,13 +56,15 @@ const TodoPage = () => {
       
         <section
           style={{ height: "calc(59vh)" }}
-          className="bg-softTeal h-screen rounded-t-3xl p-4 overflow-hidden"
+          className="bg-softTeal rounded-t-3xl p-4 overflow-hidden"
         >
           <ul className="mt-3 overflow-y-auto h-full" >
             {listTask?.data.map((item: any) => (
               <TaskItem
-                key={item.name}
+                key={item._id}
+                id={item._id}
                 streak={0}
+                complete={item.completed}
                 title={item.name}
               />
             ))} 

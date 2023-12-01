@@ -4,10 +4,18 @@ function ProgressCircle({
   value,
   max,
   size,
+  color,
+  text,
+  strokeWidth = 4,
+  fontSize = 13
 }: {
   value: number;
   max: number;
   size: number;
+  strokeWidth?: number;
+  fontSize?: number;
+  text?: string;
+  color?: string;
 }) {
   const radius = (size - 10) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -22,7 +30,7 @@ function ProgressCircle({
         r={radius}
         cx={size / 2}
         cy={size / 2}
-        strokeWidth="4"
+        strokeWidth={strokeWidth}
       />
       <circle
         stroke="#F9D575"
@@ -30,20 +38,20 @@ function ProgressCircle({
         r={radius}
         cx={size / 2}
         cy={size / 2}
-        strokeWidth="4"
+        strokeWidth={strokeWidth}
         strokeDasharray={circumference}
         strokeDashoffset={strokeDashoffset}
       />
       <text
         x="50%"
         y="50%"
-        fill="white"
+        fill={color ? color : "white"}
         textAnchor="middle"
         strokeWidth="1px"
         dy=".3em"
-        fontSize="13px"
+        fontSize={fontSize}
       >
-        {`${Math.round(percentage)}%`}
+        {text ? text : `${Math.round(percentage)}%`}
       </text>
     </svg>
   );

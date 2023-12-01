@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { z } from "zod";
 import Head from "next/head";
 import { useSignIn } from "@/features/auth/api/signin";
+import CoverImage from "../assets/images/cover.jpg";
+import Image from "next/image";
 
 const SignInSchema = z.object({
   email: z.string({ required_error: "Username is required" }),
@@ -30,8 +32,8 @@ const SignInForm = () => {
 
   const onSubmit = async (input: SignInInput) => {
     const { data } = await signIn(input);
-    if(data.data) {
-      router.push('/')
+    if (data.data) {
+      router.push("/");
     }
   };
 
@@ -44,13 +46,15 @@ const SignInForm = () => {
       </Head>
 
       <main className="h-screen w-full p-5">
-        <section className="p-6 text-center">
-          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900  md:text-5xl lg:text-6xl">
+        <section className="mt-12 p-6 pt-0 text-center">
+          <h1 className="text-4xl font-extrabold leading-none tracking-tight text-gray-900  md:text-5xl lg:text-6xl">
             Sign In
           </h1>
-          <p className="mb-6 text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
-            Here at Flowbite we focus on markets where technology, innovation,
-            and capital can unlock long-term value and drive economic growth.
+          <Image className="m-auto w-3/4" src={CoverImage} alt="Cover image" />
+          <p className="mb-2 text-sm font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+            <span className="font-semibold">Daily Strive</span> aims to minimize dropout rates in personal growth
+            missions with its user-friendly habit-building app, striving to
+            excel in the habit-tracking market.
           </p>
         </section>
 

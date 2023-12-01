@@ -5,7 +5,7 @@ export const useGetListTask = () =>
   useQuery({
     queryKey: "getListTask",
     queryFn: async () => {
-      const { data } = await api.get("/tasks");
+      const { data } = await api.get("/userTasks");
       return data;
     },
   });

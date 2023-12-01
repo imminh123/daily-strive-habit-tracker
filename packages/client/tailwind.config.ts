@@ -17,6 +17,7 @@ export default {
       },
       backgroundImage: (theme) => ({
         "drink-water": "url('../assets/images/water.png')",
+        "confetti": "url('../assets/images/confetti.svg')",
       }),
       backgroundSize: {
         "50%": "50%",

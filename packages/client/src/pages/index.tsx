@@ -51,8 +51,8 @@ export default function Home() {
         </section>
 
         <section
-          style={{ height: "calc(58vh)" }}
-          className="bg-softTeal h-screen rounded-t-3xl p-4 overflow-hidden"
+          // style={{ height: "calc(58vh)" }}
+          className="bg-softTeal rounded-t-3xl p-4 h-full overflow-hidden"
         >
           <div className="flex justify-between items-center">
             <span className="text-sm font-light">
@@ -66,12 +66,14 @@ export default function Home() {
             max="100"
           ></progress>
 
-          <div className="mt-3 overflow-y-auto h-full" >
-            {listTask && listTask.data.map((item: any) => (
+          <div className="mt-3 h-3/4 overflow-y-auto" >
+            {listTask?.data.map((item: any) => (
               <TaskItem
-                key={item.id}
-                streak={0}
+                key={item._id}
+                id={item._id}
+                streak={item.streak}
                 title={item.name}
+                complete={item.completed}
               />
             ))} 
           </div>

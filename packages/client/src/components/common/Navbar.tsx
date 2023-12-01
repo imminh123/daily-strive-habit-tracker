@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HomeIcon from "../../assets/icons/home.svg";
@@ -6,6 +6,17 @@ import MenuIcon from "../../assets/icons/menu.svg";
 import PlusIcon from "../../assets/icons/plus.svg";
 import TrophyIcon from "../../assets/icons/trophy.svg";
 import SettingsIcon from "../../assets/icons/settings.svg";
+import {
+  CreateTask,
+  CreateTaskSchema,
+  useCreateTask,
+} from "@/features/tasks/api/createTask";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import router from "next/router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { TimePicker } from "./TimePicker";
 
 const PlusButton = ({
   onClick,
@@ -36,47 +47,82 @@ const NavbarButton = ({
 };
 
 export const Navbar = () => {
+  const { mutate: createTask } = useCreateTask();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    watch,
+    formState: { errors },
+  } = useForm<CreateTask>({
+    resolver: zodResolver(CreateTaskSchema),
+  });
+
+  const onSubmit = async (input: CreateTask) => {
+    const data = await createTask(input);
+    // if (data.data) {
+    //   router.push("/");
+    // }
+  };
+
+  const handleCreateTask = () => {};
+
+  useEffect(() => {
+    watch('notificationToggle', true)
+    const now = new Date()
+    setValue('hour', now.getHours())
+    setValue('minute', now.getMinutes())
+    setValue('notificationToggle', true)
+  }, [])
+
+ 
   return (
     <>
       <dialog id="create_custom_task_modal" className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Custom task</h3>
+          <h3 className="text-lg font-bold">Create Your Custom Habit</h3>
           <input
             type="text"
             placeholder="Name"
-            className="input input-bordered input-primary mt-3 w-full max-w-xs"
+            {...register("name")}
+            className="input input-bordered input-primary mt-3 w-full"
           />
           <input
             type="text"
             placeholder="Description"
-            className="input input-bordered input-primary mt-3 w-full max-w-xs"
+            {...register("description")}
+            className="input input-bordered input-primary mt-3 w-full"
           />
           <div className="mt-2 flex flex-col">
-            <div className="form-control w-52">
+            <div className="form-control">
               <label className="label cursor-pointer">
-                <span className="label-text">Repeat</span>
+                <span className="label-text font-semibold text-lg">Notification</span>
                 <input
                   type="checkbox"
                   className="toggle toggle-accent"
-                  checked
+                  {...register("notificationToggle")}
                 />
               </label>
-              <label className="label cursor-pointer">
-                <span className="label-text">Remember me</span>
-                <input
-                  type="checkbox"
-                  className="toggle toggle-accent"
-                  checked
-                />
-              </label>
-              <label className="label cursor-pointer">
-                <span className="label-text">Remember me</span>
-                <input
-                  type="checkbox"
-                  className="toggle toggle-accent"
-                  checked
-                />
-              </label>
+
+                {getValues('notificationToggle') && 
+                  <label className="label cursor-pointer w-full flex items-center mt-2">
+                  <span className="label-text font-semibold text-lg whitespace-nowrap mr-5">Notification Time</span>
+                    <input
+                      type="number"
+                      placeholder="Hour"
+                      {...register("hour")}
+                      className="input input-bordered input-primary w-full mr-2"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Minute"
+                      {...register("minute")}
+                      className="input input-bordered input-primary w-full"
+                    />
+                  </label>
+                }
+              
             </div>
           </div>
           <div className="modal-action">

@@ -9,3 +9,12 @@
 .flex-col-center {
     @apply flex flex-col items-center justify-between
 }
+
+html {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+main {
+    height: 100vh;
+}

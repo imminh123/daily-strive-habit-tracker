@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 
 const TaskListPage = () => {
   const {query} = useRouter()
-  console.log("🚀 ~ file: index.tsx:9 ~ TaskListPage ~ query:", query)
   const data = [
     {
       id: 1,

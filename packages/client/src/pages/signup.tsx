@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import { z } from "zod";
 import Head from "next/head";
 import { useRegister } from "@/features/auth/api/register";
+import CoverImage from '../assets/images/cover.jpg'
+import Image from "next/image";
+
 
 const SignupSchema = z
   .object({
@@ -27,8 +30,8 @@ export type SignUpInput = z.infer<typeof SignupSchema>;
 
 const SignupForm = () => {
   const [apiError, setApiError] = useState("");
-  const {mutateAsync: registerUser, isLoading} = useRegister();
-  const router = useRouter()
+  const { mutateAsync: registerUser } = useRegister();
+  const router = useRouter();
 
   const {
     register,
@@ -38,15 +41,15 @@ const SignupForm = () => {
     resolver: zodResolver(SignupSchema),
   });
 
-  const onSubmit = async(input: SignUpInput) => {
+  const onSubmit = async (input: SignUpInput) => {
     if (input.password !== input.passwordRecheck) {
       setApiError("Passwords do not match");
       return;
     }
 
-    const {data} = await registerUser(input)
-    if(data.data) {
-      router.push('/signin')
+    const { data } = await registerUser(input);
+    if (data.data) {
+      router.push("/signin");
     }
   };
 
@@ -58,14 +61,16 @@ const SignupForm = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="h-screen w-full p-5">
-        <section className="p-6 text-center">
-          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900  md:text-5xl lg:text-6xl">
+      <main className="mt-5 h-screen w-full p-5">
+        <section className="p-6 pt-0 text-center">
+          <h1 className="text-4xl font-extrabold leading-none tracking-tight text-gray-900  md:text-5xl lg:text-6xl">
             Sign Up
           </h1>
-          <p className="mb-6 text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
-            Here at Flowbite we focus on markets where technology, innovation,
-            and capital can unlock long-term value and drive economic growth.
+        <Image className="m-auto w-3/4" src={CoverImage} alt="Cover image" />
+          <p className="mb-2 text-sm font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+          <span className="font-semibold">Daily Strive</span> aims to minimize dropout rates in personal growth
+            missions with its user-friendly habit-building app, striving to
+            excel in the habit-tracking market.
           </p>
         </section>
 
@@ -76,14 +81,14 @@ const SignupForm = () => {
           <input
             type="text"
             className="input input-bordered mb-3 w-full max-w-xs"
-            placeholder="Username"
+            placeholder="Firstname"
             {...register("firstname")}
           />
           {errors.firstname && <p>{errors.firstname.message}</p>}
           <input
             type="text"
             className="input input-bordered mb-3 w-full max-w-xs"
-            placeholder="Username"
+            placeholder="Lastname"
             {...register("lastname")}
           />
           {errors.lastname && <p>{errors.lastname.message}</p>}
