@@ -15,7 +15,9 @@ const CONFIG = {
     BASE_URL: process.env.API_BASE_URL,
     PORT: process.env.NODE_ENV === "test" ? 8888 : process.env.PORT || 8080,
     ENV: process.env.NODE_ENV,
-    MONGODB_URI: process.env.MONGODB_URI,
+    MONGODB_URI:
+      process.env.MONGODB_URI ||
+      "mongodb+srv://aalto:FqQOOW1EHV8ugrpm@daily-strive.sbmyorq.mongodb.net/dailystrive?retryWrites=true&w=majority",
     SESSION_SECRET: process.env.SESSION_SECRET,
     TESTEMAIL: process.env.TESTEMAIL,
     TESTPASSWORD: process.env.TESTPASSWORD,

@@ -39,7 +39,7 @@ export class UserTaskRepository {
   }
 
   // delete a UserTask
-  async delete(id: String): Promise<IUserTask | null> {
+  async delete(id: String) {
     return this.model.findByIdAndDelete(id).exec();
   }
   //update multiple UserTasks

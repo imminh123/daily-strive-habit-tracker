@@ -33,7 +33,7 @@ export class UserTaskServices {
     return this.userTaskRepository.create(data);
   };
 
-  deleteUserTask = (_id: String): Promise<IUserTask | null> => {
+  deleteUserTask = (_id: String) => {
     return this.userTaskRepository.delete(_id);
   };
   updateUserTask = (

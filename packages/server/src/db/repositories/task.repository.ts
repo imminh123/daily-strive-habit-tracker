@@ -37,7 +37,7 @@ export class TaskRepository {
   }
 
   // delete a Task
-  async delete(id: String): Promise<ITask | null> {
+  async delete(id: String) {
     return this.model.findByIdAndDelete(id).exec();
   }
 }
