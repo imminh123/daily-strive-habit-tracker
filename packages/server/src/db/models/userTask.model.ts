@@ -11,8 +11,8 @@ export interface IUserTask {
   isNotified: boolean;
   user: ObjectId;
   topic: ObjectId;
-  createdAt: Date; 
-  updatedAt: Date; 
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const UserTaskSchema = new Schema<IUserTask>(

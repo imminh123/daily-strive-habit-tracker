@@ -42,7 +42,7 @@ export class UserRepository {
   }
 
   // delete a User
-  async delete(id: String): Promise<IUser | null> {
+  async delete(id: String) {
     return this.model.findByIdAndDelete(id).exec();
   }
 }

@@ -44,14 +44,12 @@ export class UserTaskController {
     }
   };
 
-  static getUserTasksByTopicId = async (
-    req: Req,
-    res: Res,
-    next: NextFn,
-  ) => {
+  static getUserTasksByTopicId = async (req: Req, res: Res, next: NextFn) => {
     try {
       const userTaskServices = new UserTaskServices();
-      const result = await userTaskServices.getUserTasksByTopicId(req.params.id);
+      const result = await userTaskServices.getUserTasksByTopicId(
+        req.params.id,
+      );
       res.status(OK).json(apiResponse(result));
     } catch (error) {
       next(error);
@@ -115,7 +113,11 @@ export class UserTaskController {
     }
   };
 
-  static getNumberOfCompleteTasksPastWeek= async (req: Req, res: Res, next: NextFn) => {
+  static getNumberOfCompleteTasksPastWeek = async (
+    req: Req,
+    res: Res,
+    next: NextFn,
+  ) => {
     try {
       const userTaskServices = new UserTaskServices();
       const userTasks = await userTaskServices.getUserTasksByUserId(
@@ -123,7 +125,9 @@ export class UserTaskController {
       );
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-      const result = await userTasks?.filter(ut => ut.completed == true && ut.updatedAt > sevenDaysAgo);
+      const result = await userTasks?.filter(
+        (ut) => ut.completed == true && ut.updatedAt > sevenDaysAgo,
+      );
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {

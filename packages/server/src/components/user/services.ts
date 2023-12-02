@@ -46,7 +46,7 @@ export class UserServices {
     }
   };
 
-  deleteUser = (_id: String): Promise<IUser | null> => {
+  deleteUser = (_id: String) => {
     return this.userRepository.delete(_id);
   };
 
