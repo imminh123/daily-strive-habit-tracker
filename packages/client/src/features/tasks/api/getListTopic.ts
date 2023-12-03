@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 
 export const useGetListTopic = () =>
   useQuery({
-    queryKey: "getListTopic",
+    queryKey: "useGetListTopic",
     queryFn: async () => {
       const { data } = await api.get("/topics");
       return data;

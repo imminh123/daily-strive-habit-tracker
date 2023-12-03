@@ -138,7 +138,7 @@ export class UserTaskController {
   static createUserTask = async (req: Req, res: Res, next: NextFn) => {
     try {
       const userTaskServices = new UserTaskServices();
-      const result = await userTaskServices.createUserTask(req.body);
+      const result = await userTaskServices.createUserTask({...req.body, streak: 0, completed: false });
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {

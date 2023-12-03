@@ -13,7 +13,7 @@ export const Search = ({inputClassName}: {inputClassName?: string}) => {
   } 
 
   return (
-      <div className={`mx-auto w-full sm:max-w-xs`}>
+      <div className={`mx-auto w-full`}>
         <label htmlFor="search" className="sr-only">
           Search
         </label>

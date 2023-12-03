@@ -1,39 +1,13 @@
 import { Search } from "@/components/common/Search";
+import { useGetListStaticTask } from "@/features/tasks/api/getListTask";
 import { StaticTaskItem } from "@/features/tasks/components/StaticTaskItem";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 const TaskListPage = () => {
-  const {query} = useRouter()
-  const data = [
-    {
-      id: 1,
-      name: "Staying fit",
-      description: "Be strong and full of energy",
-    },
-    {
-      id: 2,
-      name: "Learn & explore",
-      description: "Be strong and full of energy",
-    },
-    {
-      id: 3,
-      name: "Better sleep",
-      description: "Be strong and full of energy",
-    },
-    {
-      id: 4,
-      name: "Getting stuff done",
-      description: "Be strong and full of energy",
-    },
-    {
-      id: 5,
-      name: "Stress relief",
-      description: "Be strong and full of energy",
-    },
-  ];
-
+  const { query } = useRouter();
+  const { data } = useGetListStaticTask(query.id as string);
   return (
     <>
       <Head>
@@ -47,8 +21,8 @@ const TaskListPage = () => {
         <Search inputClassName="bg-softGrey" />
 
         <div className="mt-6">
-          {data.map((item) => (
-            <Link href={`/topic/${query.id}/${item.id}`}>
+          {data?.data && data?.data?.map((item) => (
+            <Link href={`/topic/${query.id}/${item._id}`} key={item._id}>
               <StaticTaskItem
                 key={item.name}
                 name={item.name}

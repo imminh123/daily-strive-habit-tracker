@@ -13,8 +13,12 @@ export class TaskServices {
    * @returns AppInformation
    */
 
-  getTasks = (): Promise<ITask[] | null> => {
-    return this.taskRepository.find({});
+  getTasks = (filter: Partial<ITask> = {}): Promise<ITask[] | null> => {
+    return this.taskRepository.find(filter);
+  };
+
+  getOne = (id: string): Promise<ITask | null> => {
+    return this.taskRepository.findById(id);
   };
 
   createTask = (data: ITask): Promise<ITask | null> => {

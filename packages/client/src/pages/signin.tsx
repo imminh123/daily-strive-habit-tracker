@@ -7,6 +7,8 @@ import Head from "next/head";
 import { useSignIn } from "@/features/auth/api/signin";
 import CoverImage from "../assets/images/cover.jpg";
 import Image from "next/image";
+import Link from "next/link";
+import {toast} from 'react-toastify'
 
 const SignInSchema = z.object({
   email: z.string({ required_error: "Username is required" }),
@@ -32,8 +34,11 @@ const SignInForm = () => {
 
   const onSubmit = async (input: SignInInput) => {
     const { data } = await signIn(input);
-    if (data.data) {
+    if (data.data.user) {
+      localStorage.setItem('auth', JSON.stringify(data.data.user))
       router.push("/");
+    }else {
+      toast.error('Sign in failed! Check your email and password')
     }
   };
 
@@ -45,16 +50,16 @@ const SignInForm = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="h-screen w-full p-5">
+      <main className="h-screen w-full p-5 border-solid border-2 rounded-lg">
         <section className="mt-12 p-6 pt-0 text-center">
           <h1 className="text-4xl font-extrabold leading-none tracking-tight text-gray-900  md:text-5xl lg:text-6xl">
             Sign In
           </h1>
           <Image className="m-auto w-3/4" src={CoverImage} alt="Cover image" />
           <p className="mb-2 text-sm font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
-            <span className="font-semibold">Daily Strive</span> aims to minimize dropout rates in personal growth
-            missions with its user-friendly habit-building app, striving to
-            excel in the habit-tracking market.
+            <span className="font-semibold">Daily Strive</span> aims to minimize
+            dropout rates in personal growth missions with its user-friendly
+            habit-building app, striving to excel in the habit-tracking market.
           </p>
         </section>
 
@@ -76,6 +81,7 @@ const SignInForm = () => {
             {...register("password")}
           />
           {errors.password && <p>{errors.password.message}</p>}
+          <Link href="/signup" className="text-accent mb-2">Not a member yet? Sign up</Link>
           <button className="btn btn-primary btn-wide" type="submit">
             Submit
           </button>

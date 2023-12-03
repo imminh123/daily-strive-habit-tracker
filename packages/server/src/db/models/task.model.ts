@@ -1,10 +1,10 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose, { Types } from "mongoose";
 const { Schema } = mongoose;
 
 export interface ITask {
   name: string;
   description: string;
-  topic: ObjectId;
+  topic: Types.ObjectId;
 }
 
 const TaskSchema = new Schema<ITask>(

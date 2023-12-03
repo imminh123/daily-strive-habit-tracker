@@ -7,6 +7,8 @@ import Head from "next/head";
 import { useRegister } from "@/features/auth/api/register";
 import CoverImage from '../assets/images/cover.jpg'
 import Image from "next/image";
+import Link from "next/link";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const SignupSchema = z
@@ -48,8 +50,10 @@ const SignupForm = () => {
     }
 
     const { data } = await registerUser(input);
-    if (data.data) {
+    if (data.data.email) {
       router.push("/signin");
+    }else {
+      toast.error('Sign up failed! Your email can be duplicated')
     }
   };
 
@@ -61,7 +65,7 @@ const SignupForm = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="mt-5 h-screen w-full p-5">
+      <main className="h-screen w-full p-5 border-solid border-2 rounded-lg">
         <section className="p-6 pt-0 text-center">
           <h1 className="text-4xl font-extrabold leading-none tracking-tight text-gray-900  md:text-5xl lg:text-6xl">
             Sign Up
@@ -113,6 +117,7 @@ const SignupForm = () => {
             {...register("passwordRecheck")}
           />
           {errors.passwordRecheck && <p>{errors.passwordRecheck.message}</p>}
+          <Link href="/signin" className="text-accent mb-2">Already a member? Sign in</Link>
           <button className="btn btn-primary btn-wide" type="submit">
             Submit
           </button>

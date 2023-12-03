@@ -58,6 +58,11 @@ router.put(
 );
 
 //Tasks
+router.get(
+  "/tasks/:id",
+  sanitizer(appKeyValidator),
+  TaskController.getTasksDetail,
+);
 router.get("/tasks", sanitizer(appKeyValidator), TaskController.getTasks);
 router.post("/tasks", sanitizer(appKeyValidator), TaskController.createTask);
 router.delete(
