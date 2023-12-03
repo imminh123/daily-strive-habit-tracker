@@ -1,7 +1,7 @@
 import { OK } from "http-status/lib";
 import { TaskServices } from "./services";
 import { apiResponse } from "@/helpers/apiResponse";
-import {Types} from 'mongoose'
+import { Types } from "mongoose";
 
 export class TaskController {
   /**
@@ -12,7 +12,9 @@ export class TaskController {
   static getTasks = async (req: Req, res: Res, next: NextFn) => {
     try {
       const taskServices = new TaskServices();
-      const result = await taskServices.getTasks({ topic: new Types.ObjectId(req.query.topicId as string) });
+      const result = await taskServices.getTasks({
+        topic: new Types.ObjectId(req.query.topicId as string),
+      });
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {

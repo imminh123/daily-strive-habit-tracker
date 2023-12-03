@@ -39,7 +39,7 @@ const TaskListPage = ({ taskId }: { taskId: string }) => {
 
   const { mutateAsync: createUserTask } = useCreateTask();
   const user = useAuth()
-  const handleCreateUserTask = async (value) => {
+  const handleCreateUserTask = async (value: any) => {
     const result = await createUserTask({...value, user: user._id});
     if (result.data) push("/");
   };

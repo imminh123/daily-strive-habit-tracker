@@ -17,12 +17,12 @@ const App: AppType<{ session: Session | null }> = ({
   const router = useRouter();
   useEffect(() => {
     const user = localStorage.getItem("auth");
-    if (!user) {
+    if (!user && (router.pathname !== '/signup')) {
       router.push("/signin");
     }else if(router.pathname === '/signin') {
       router.push("/");
     }
-  });
+  }, []);
 
   return (
     <SessionProvider session={session}>

@@ -1,5 +1,8 @@
 export const useAuth = () => {
-  const user = localStorage.getItem("auth");
-  if (user) return JSON.parse(user);
-  else return null
+  if (typeof window !== 'undefined') {
+    const user = localStorage.getItem("auth");
+    if (user) return JSON.parse(user);
+    else return null
+  }
+  return null
 };

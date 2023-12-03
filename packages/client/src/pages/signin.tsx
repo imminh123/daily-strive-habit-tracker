@@ -56,7 +56,7 @@ const SignInForm = () => {
             Sign In
           </h1>
           <Image className="m-auto w-3/4" src={CoverImage} alt="Cover image" />
-          <p className="mb-2 text-sm font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
+          <p className="mb-2 text-sm font-normal text-gray-500 dark:text-gray-400">
             <span className="font-semibold">Daily Strive</span> aims to minimize
             dropout rates in personal growth missions with its user-friendly
             habit-building app, striving to excel in the habit-tracking market.
