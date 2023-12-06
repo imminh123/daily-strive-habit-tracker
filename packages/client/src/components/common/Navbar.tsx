@@ -74,7 +74,7 @@ export const Navbar = () => {
   };
 
   const handleCloseModal = () => {
-    document.getElementById("create_custom_task_modal").close();
+    (document.getElementById("create_custom_task_modal") as any).close();
   };
 
   useEffect(() => {

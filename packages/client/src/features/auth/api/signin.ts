@@ -2,8 +2,8 @@ import { api } from "@/utils/axios";
 import { useMutation } from "react-query";
 
 interface ISignIn {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }
 
 export const useSignIn = () =>
