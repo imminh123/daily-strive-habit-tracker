@@ -1,5 +1,9 @@
 import { UserTaskRepository } from "@/db/repositories/userTask.repository";
-import { IUserTask, UserTaskModel } from "@/db/models/userTask.model";
+import {
+  ICreateUserTask,
+  IUserTask,
+  UserTaskModel,
+} from "@/db/models/userTask.model";
 import { FilterQuery, QueryOptions } from "mongoose";
 export class UserTaskServices {
   userTaskRepository!: UserTaskRepository;
@@ -13,8 +17,8 @@ export class UserTaskServices {
    * @returns AppInformation
    */
 
-  getUserTasks = (): Promise<IUserTask[] | null> => {
-    return this.userTaskRepository.find({}, { sort: { createdAt: -1 } });
+  getUserTasks = (userId: string): Promise<IUserTask[] | null> => {
+    return this.userTaskRepository.find({user: userId}, { sort: { createdAt: -1 } });
   };
 
   getUserTask = (id: string): Promise<IUserTask | null> => {
@@ -29,7 +33,9 @@ export class UserTaskServices {
     return this.userTaskRepository.find({ topic: topicId });
   };
 
-  createUserTask = (data: IUserTask): Promise<IUserTask | null> => {
+  createUserTask = (
+    data: ICreateUserTask | ICreateUserTask[],
+  ): Promise<IUserTask | null> => {
     return this.userTaskRepository.create(data);
   };
 

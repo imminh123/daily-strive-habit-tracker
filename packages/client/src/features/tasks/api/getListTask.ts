@@ -29,3 +29,13 @@ export const useGetOneTask = (topicId: string) =>
     },
     enabled: !!topicId,
   });
+
+export const useGetOneUserTask = (taskId: string) =>
+  useQuery({
+    queryKey: "useGetOneUserTask",
+    queryFn: async () => {
+      const { data } = await api.get(`/userTasks/${taskId}`);
+      return data;
+    },
+    enabled: !!taskId,
+  });

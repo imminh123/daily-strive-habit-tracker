@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 export interface IUser {
+  _id: string;
   firstname: string;
   lastname: string;
   email: string;

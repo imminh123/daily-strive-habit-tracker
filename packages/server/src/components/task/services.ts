@@ -21,7 +21,7 @@ export class TaskServices {
     return this.taskRepository.findById(id);
   };
 
-  createTask = (data: ITask): Promise<ITask | null> => {
+  createTask = (data: ITask | ITask[]): Promise<ITask | null> => {
     return this.taskRepository.create(data);
   };
 

@@ -1,6 +1,9 @@
 import { CREATED, OK } from "http-status/lib";
 import { UserServices } from "./services";
 import { apiResponse } from "@/helpers/apiResponse";
+import { TaskServices } from "../task/services";
+import { UserTaskServices } from "../userTask/services";
+import { ICreateUserTask } from "@/db/models/userTask.model";
 
 export class UserController {
   /**
@@ -47,6 +50,52 @@ export class UserController {
           .json(apiResponse({ Conflict: "Already existing email" }));
       } else {
         const result = await userServices.createUser(body);
+
+        if (result) {
+          const taskServices = new UserTaskServices();
+
+          // create sample tasks
+          const sampleTasks: ICreateUserTask[] = [
+            {
+              name: "Browse the task list",
+              description:
+                "Get to see what tasks do we offer to improve yourself.",
+              notificationToggle: false,
+              completed: false,
+              streak: 0,
+              user: result._id,
+            },
+            {
+              name: "Choose one of the task from our task list",
+              description: "Choose one task that suits your target.",
+              notificationToggle: false,
+              completed: false,
+              streak: 0,
+              user: result._id,
+            },
+            {
+              name: "Create your own custom task",
+              description:
+                "Can't find the task you want in the list? Worry not, create one of your own.",
+              notificationToggle: false,
+              completed: false,
+              streak: 0,
+              user: result._id,
+            },
+            {
+              name: "Check your inbox for notification",
+              description:
+                "We will send you notification for each task via your email inbox.",
+              notificationToggle: false,
+              completed: false,
+              streak: 0,
+              user: result._id,
+            },
+          ];
+
+          await taskServices.createUserTask(sampleTasks);
+        }
+
         res.status(CREATED).json(apiResponse(result));
       }
     } catch (error) {

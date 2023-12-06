@@ -1,32 +1,32 @@
 import ProgressCircle from "@/components/common/ProgressCircle";
 import { CreateTask, CreateTaskSchema } from "@/features/tasks/api/createTask";
+import { useGetOneTask, useGetOneUserTask } from "@/features/tasks/api/getListTask";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const TaskListPage = ({ taskId }: { taskId: string }) => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    watch,
-    formState: { errors },
-  } = useForm<CreateTask>({
-    resolver: zodResolver(CreateTaskSchema),
-  });
+const TaskListPage = () => {
+  const { query } = useRouter();
+  const { data } = useGetOneUserTask(query.id as string);
 
+  const { register, handleSubmit, setValue, getValues, watch } =
+    useForm<CreateTask>({
+      resolver: zodResolver(CreateTaskSchema),
+    });
   useEffect(() => {
     watch("notificationToggle", true);
+    watch("hour");
+    watch("minute");
     const now = new Date();
     setValue("hour", now.getHours());
     setValue("minute", now.getMinutes());
-    setValue("name", "Morning Run");
-    setValue("name", "Kick start your day with a morning run");
+    setValue("name", data?.data?.name);
+    setValue("description", data?.data?.description);
     setValue("minute", now.getMinutes());
     setValue("notificationToggle", true);
-  }, []);
+  }, [data]);
 
   return (
     <>
@@ -37,10 +37,10 @@ const TaskListPage = ({ taskId }: { taskId: string }) => {
       <main className="relative flex flex-col items-center bg-primary p-3">
         <header className="py-1">
           <h1 className="text-center text-2xl font-semibold text-white">
-            Morning Run
+            {data?.data?.name}
           </h1>
         </header>
-        <p className="text-white">Kick start your day with a morning run</p>
+        <p className="text-center text-white">{data?.data?.description}</p>
         <div className="mt-5 w-full rounded-xl bg-white px-5 py-3">
           <h1 className="self-start text-xl font-semibold">About</h1>
           <input
@@ -94,8 +94,8 @@ const TaskListPage = ({ taskId }: { taskId: string }) => {
           </button>
         </div>
 
-        <div className="my-2 flex items-center w-full rounded-xl bg-white px-5 py-3">
-          <p className="mt-1 flex flex-col text-center font-semibold text-accent mr-5">
+        <div className="my-2 flex w-full items-center rounded-xl bg-white px-5 py-3">
+          <p className="mr-5 mt-1 flex flex-col text-center font-semibold text-accent">
             <span className="text-3xl">6</span> <span>times</span>
           </p>
           <div>

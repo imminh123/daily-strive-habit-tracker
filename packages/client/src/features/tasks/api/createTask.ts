@@ -1,5 +1,5 @@
 import { api } from "@/utils/axios";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { z } from "zod";
 
 export const CreateTaskSchema = z.object({
@@ -13,11 +13,14 @@ export const CreateTaskSchema = z.object({
 
 export type CreateTask = z.infer<typeof CreateTaskSchema>;
 
-export const useCreateTask = () =>
-  useMutation({
+export const useCreateTask = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
     mutationKey: "useCreateTask",
     mutationFn: async (body: CreateTask) => {
       const { data } = await api.post(`/userTasks`, body);
+      queryClient.invalidateQueries("useGetListTask");
       return data;
     },
   });
+};

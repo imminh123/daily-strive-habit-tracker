@@ -10,12 +10,6 @@ import { Router } from "express";
 import { t } from "../trpc";
 import { userRouter } from "./user";
 
-export const appRouter = t.router({
-  user: userRouter,
-});
-
-export type AppRouter = typeof appRouter;
-
 const router = Router();
 
 router.get("/", sanitizer(appKeyValidator), HomeController.getAppInfo);
@@ -78,6 +72,12 @@ router.get(
   "/userTasks",
   sanitizer(appKeyValidator),
   UserTaskController.getUserTasks,
+);
+
+router.get(
+  "/userTasks/:id",
+  sanitizer(appKeyValidator),
+  UserTaskController.getUserTask,
 );
 router.get(
   "/userTasksByUserId/:id",

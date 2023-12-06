@@ -9,7 +9,7 @@ export class TaskRepository {
   }
 
   // create a new Task
-  async create(data: ITask): Promise<ITask> {
+  async create(data: ITask | ITask[]): Promise<ITask> {
     return this.model.create(data);
   }
 

@@ -8,7 +8,7 @@ import CONFIG from "./config";
 import { expressPinoLogger } from "./helpers";
 import { createContext } from "./context";
 import * as errorHandler from "@/middlewares/errorHandler";
-import routes, { appRouter } from "@/routes";
+import routes from "@/routes";
 import session from "express-session";
 declare module "express-session" {
   export interface SessionData {
@@ -50,13 +50,6 @@ export const createApp = (): express.Application => {
 
   // API Routes
   app.use(`/api/${CONFIG.APP.VER}`, routes);
-  app.use(
-    "/trpc",
-    createExpressMiddleware({
-      router: appRouter,
-      createContext,
-    }),
-  );
 
   // Error Middleware
   app.use(errorHandler.genericErrorHandler);

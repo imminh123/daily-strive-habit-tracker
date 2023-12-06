@@ -1,5 +1,5 @@
 import { FilterQuery, Model, QueryOptions } from "mongoose";
-import { IUserTask } from "../models/userTask.model";
+import { ICreateUserTask, IUserTask } from "../models/userTask.model";
 
 export class UserTaskRepository {
   private model: Model<IUserTask>;
@@ -9,7 +9,7 @@ export class UserTaskRepository {
   }
 
   // create a new UserTask
-  async create(data: IUserTask): Promise<IUserTask> {
+  async create(data: ICreateUserTask | ICreateUserTask[]): Promise<IUserTask> {
     return this.model.create(data);
   }
 

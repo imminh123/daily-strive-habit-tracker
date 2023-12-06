@@ -4,15 +4,26 @@ const { Schema } = mongoose;
 export interface IUserTask {
   name: string;
   description: string;
-  completed: boolean;
-  streak: number;
+  completed?: boolean;
+  streak?: number;
   notificationToggle: boolean;
-  notificationTime: Date;
-  isNotified: boolean;
+  notificationTime?: Date;
+  isNotified?: boolean;
   user: ObjectId;
-  topic: ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
+  topic?: ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface ICreateUserTask {
+  name: string;
+  description: string;
+  notificationToggle: boolean;
+  user: string;
+  completed?: boolean;
+  streak?: number;
+  notificationTime?: Date;
+  isNotified?: boolean;
 }
 
 const UserTaskSchema = new Schema<IUserTask>(

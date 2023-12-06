@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const App: AppType<{ session: Session | null }> = ({
   Component,
