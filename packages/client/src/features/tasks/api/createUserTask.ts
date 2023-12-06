@@ -19,3 +19,12 @@ export const useCreateUserTask = () =>
       return data;
     },
   });
+
+export const useDeleteUserTask = () =>
+  useMutation({
+    mutationKey: "useDeleteUserTask",
+    mutationFn: async (taskId: string) => {
+      const { data } = await api.delete(`/userTasks/${taskId}`);
+      return data;
+    },
+  });

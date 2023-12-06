@@ -1,5 +1,6 @@
 import ProgressCircle from "@/components/common/ProgressCircle";
 import { CreateTask, CreateTaskSchema } from "@/features/tasks/api/createTask";
+import { useDeleteUserTask } from "@/features/tasks/api/createUserTask";
 import { useGetOneUserTask } from "@/features/tasks/api/getListTask";
 import { useGetTaskLogs } from "@/features/tasks/api/getLogs";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,11 +8,14 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import {toast} from 'react-toastify'
 
 const TaskListPage = () => {
   const { query } = useRouter();
   const { data } = useGetOneUserTask(query.id as string);
+  const { mutateAsync: completeHabit } = useDeleteUserTask();
   const { data: logData } = useGetTaskLogs(query.id as string);
+  const router = useRouter()
   const { register, handleSubmit, setValue, getValues, watch } =
     useForm<CreateTask>({
       resolver: zodResolver(CreateTaskSchema),
@@ -28,6 +32,12 @@ const TaskListPage = () => {
     setValue("minute", now.getMinutes());
     setValue("notificationToggle", true);
   }, [data]);
+
+  const handleCompleteHabit = async () => {
+    await completeHabit(query.id);
+    toast.success('Task is removed from your list', {delay: 2})
+    router.push('/')
+  };
 
   return (
     <>
@@ -95,7 +105,7 @@ const TaskListPage = () => {
           </button>
         </div>
 
-        <section className="flex w-full flex-col items-center rounded-xl bg-white bg-confetti bg-cover bg-no-repeat p-5 mt-5">
+        <section className="mt-5 flex w-full flex-col items-center rounded-xl bg-white bg-confetti bg-cover bg-no-repeat p-5">
           <h1 className="self-start text-xl font-semibold">Goal preview</h1>
           <div className="flex w-full justify-between px-10">
             <div className="flex flex-col items-center p-1">
@@ -126,7 +136,10 @@ const TaskListPage = () => {
               </span>
             </div>
           </div>
-          <button className="btn btn-accent mt-6 w-3/5 rounded-full text-white">
+          <button
+            onClick={handleCompleteHabit}
+            className="btn btn-accent mt-6 w-3/5 rounded-full text-white"
+          >
             Complete Habit
           </button>
         </section>

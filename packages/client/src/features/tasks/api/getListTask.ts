@@ -12,7 +12,7 @@ export const useGetListTask = () =>
 
 export const useGetListStaticTask = (topicId: string) =>
   useQuery({
-    queryKey: "useGetListStaticTask",
+    queryKey: ["useGetListStaticTask", topicId],
     queryFn: async () => {
       const { data } = await api.get(`/tasks`, { params: { topicId } });
       return data;

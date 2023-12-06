@@ -12,8 +12,10 @@ export class TaskController {
   static getTasks = async (req: Req, res: Res, next: NextFn) => {
     try {
       const search = req.query.q;
+      const topicId = req.query.topicId;
       const taskServices = new TaskServices();
       const result = await taskServices.getTasks({
+        ...(topicId && {topic: new Types.ObjectId(req.query.topicId as string)}),
         ...(search && { name: { $regex: search, $options: "i" } }),
       });
 

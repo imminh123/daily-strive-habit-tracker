@@ -55,6 +55,8 @@ export const Navbar = () => {
   } = useForm<CreateTask>({
     resolver: zodResolver(CreateTaskSchema),
   });
+  console.log("🚀 ~ file: Navbar.tsx:55 ~ Navbar ~ errors:", errors)
+  console.log("🚀 ~ file: Navbar.tsx:55 ~ Navbar ~ errors:", errors)
 
   useEffect(() => {
     watch("notificationToggle", true);
@@ -63,12 +65,13 @@ export const Navbar = () => {
     const now = new Date();
     setValue("hour", now.getHours());
     setValue("minute", now.getMinutes());
-    setValue("minute", now.getMinutes());
     setValue("notificationToggle", true);
   }, []);
 
   const user = useAuth();
   const handleCreateUserTask = async (value: any) => {
+    console.log("🚀 ~ file: Navbar.tsx:73 ~ handleCreateUserTask ~ value:", value)
+    console.log("🚀 ~ file: Navbar.tsx:73 ~ handleCreateUserTask ~ value:", value)
     const result = await createUserTask({ ...value, user: user._id });
     handleCloseModal();
   };
@@ -85,6 +88,7 @@ export const Navbar = () => {
       getValues("hour"),
       getValues("minute"),
     );
+    console.log("🚀 ~ file: Navbar.tsx:89 ~ useEffect ~ notificationTime:", notificationTime)
     setValue("notificationTime", notificationTime);
   }, [getValues("hour"), getValues("minute")]);
 

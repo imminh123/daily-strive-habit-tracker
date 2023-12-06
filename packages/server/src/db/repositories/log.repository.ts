@@ -21,10 +21,7 @@ export class LogRepository {
     return this.model.find(filters, null, options).exec();
   }
 
-  async count(
-    filters: FilterQuery<ILog>,
-    options?: QueryOptions,
-  ) {
+  async count(filters: FilterQuery<ILog>, options?: QueryOptions) {
     return this.model.count(filters).exec();
   }
 

@@ -1,12 +1,26 @@
 import TaskImage from '../../assets/images/taskscreen.png'
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TaskItem } from "@/components/pages/TaskItem";
 import Image from 'next/image';
 import { useGetListTask } from '@/features/tasks/api/getListTask';
 
 const TodoPage = () => {
   const {data: listTask} = useGetListTask()
+  const [completedTasks, setCompletedTask] = useState('0');
+
+  useEffect(() => {
+    const completedTasks = listTask?.data?.reduce((acc, element) => {
+      if (element.completed) {
+        return ++acc;
+      }
+      return acc;
+    }, 0);
+
+    setCompletedTask(
+      ((completedTasks * 100) / listTask?.data?.length).toFixed(0),
+    );
+  }, [listTask]);
 
   return (
     <>
@@ -22,7 +36,7 @@ const TodoPage = () => {
         <div className='px-3'>
         <section className='flex justify-between items-center bg-purple-2 p-5 rounded-2xl text-white'>
           <div> 
-            <span className='text-xl font-bold block'>80%</span>
+            <span className='text-xl font-bold block'>{completedTasks}%</span>
             <span className='font-semibold'>Today Habits</span>
             <p className='font-light mt-3 leading-5'>Ain’t no mountain high enough.</p>
           </div>

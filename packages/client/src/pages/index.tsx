@@ -71,7 +71,7 @@ export default function Home() {
           </div>
           <progress
             className="progress progress-secondary "
-            value={80}
+            value={completedTasks}
             max="100"
           ></progress>
 

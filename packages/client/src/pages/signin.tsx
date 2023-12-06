@@ -36,7 +36,9 @@ const SignInForm = () => {
     const { data } = await signIn(input);
     if (data.data.user) {
       localStorage.setItem('auth', JSON.stringify(data.data.user))
-      router.push("/");
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     }else {
       toast.error('Sign in failed! Check your email and password')
     }

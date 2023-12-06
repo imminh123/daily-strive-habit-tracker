@@ -7,8 +7,8 @@ export const CreateTaskSchema = z.object({
   description: z.string({ required_error: "Username is required" }),
   notificationToggle: z.boolean().default(true),
   notificationTime: z.date(),
-  hour: z.number(),
-  minute: z.number(),
+  hour: z.string(),
+  minute: z.string(),
 });
 
 export type CreateTask = z.infer<typeof CreateTaskSchema>;
