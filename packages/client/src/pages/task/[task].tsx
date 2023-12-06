@@ -29,11 +29,10 @@ import {
       watch("hour");
       watch("minute");
       const now = new Date();
-      setValue("hour", now.getHours());
-      setValue("minute", now.getMinutes());
+      setValue("hour", now.getHours().toString());
+      setValue("minute", now.getMinutes().toString());
       setValue("name", data?.data.name);
       setValue("description", data?.data.description);
-      setValue("minute", now.getMinutes());
       setValue("notificationToggle", true);
     }, [data]);
   
