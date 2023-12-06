@@ -10,8 +10,10 @@ export class LogController {
    */
   static getLogs = async (req: Req, res: Res, next: NextFn) => {
     try {
+      const userId = req.headers["x-user-id"] as string;
+      const taskId = req.params.id;
       const logServices = new LogServices();
-      const result = await logServices.getLogs();
+      const result = await logServices.getLogs(userId, taskId);
 
       res.status(OK).json(apiResponse(result));
     } catch (error) {

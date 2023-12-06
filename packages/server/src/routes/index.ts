@@ -133,4 +133,6 @@ router.get(
 
 router.post("/logs", sanitizer(appKeyValidator), LogController.createLog);
 
+router.get("/logs/:id", sanitizer(appKeyValidator), LogController.getLogs);
+
 export default router;

@@ -22,7 +22,7 @@ const TaskListPage = () => {
 
         <div className="mt-6">
           {data?.data && data?.data?.map((item) => (
-            <Link href={`/topic/${query.id}/${item._id}`} key={item._id}>
+            <Link href={`/task/${item._id}`} key={item._id}>
               <StaticTaskItem
                 key={item.name}
                 name={item.name}

@@ -21,6 +21,13 @@ export class LogRepository {
     return this.model.find(filters, null, options).exec();
   }
 
+  async count(
+    filters: FilterQuery<ILog>,
+    options?: QueryOptions,
+  ) {
+    return this.model.count(filters).exec();
+  }
+
   // find a Log by id
   async findById(id: string): Promise<ILog | null> {
     return this.model.findById(id).exec();

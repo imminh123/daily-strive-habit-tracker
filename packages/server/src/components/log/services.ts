@@ -13,8 +13,16 @@ export class LogServices {
    * @returns AppInformation
    */
 
-  getLogs = (): Promise<ILog[] | null> => {
-    return this.logRepository.find({});
+  getLogs = (userId: string, taskId: string) => {
+    // Calculate the date 7 days ago
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    return this.logRepository.count({
+      user: userId,
+      createdAt: { $gte: sevenDaysAgo },
+      task: taskId,
+    });
   };
 
   createLog = (data: ILog): Promise<ILog | null> => {

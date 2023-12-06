@@ -20,6 +20,16 @@ export const useGetListStaticTask = (topicId: string) =>
     enabled: !!topicId,
   });
 
+export const useSearchStaticTask = (q: string) =>
+  useQuery({
+    queryKey: ["useSearchStaticTask", q],
+    queryFn: async () => {
+      const { data } = await api.get(`/tasks`, { params: { q } });
+      return data;
+    },
+    enabled: !!q
+  });
+
 export const useGetOneTask = (topicId: string) =>
   useQuery({
     queryKey: "useGetOneTask",

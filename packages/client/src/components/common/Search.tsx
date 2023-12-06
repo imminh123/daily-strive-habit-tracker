@@ -1,12 +1,16 @@
-import React, { KeyboardEventHandler, useRef } from "react";
+import { useSearchStaticTask } from "@/features/tasks/api/getListTask";
+import { useRouter } from "next/router";
+import React, { KeyboardEventHandler, useRef, useState } from "react";
 
 export const Search = ({inputClassName}: {inputClassName?: string}) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
-
+  const router = useRouter()
+  const [searchTerm, setSearchTerm] = useState('');
+  const {data} = useSearchStaticTask(searchTerm)
   const handleKeyPress: KeyboardEventHandler = (event) => {
     if(event.key == 'Enter') {
       if(searchInputRef.current) {
-        console.log(searchInputRef.current.value);
+        router.push(`/search?q=${searchInputRef.current.value}`)
         searchInputRef.current.value = "";
       }
     }

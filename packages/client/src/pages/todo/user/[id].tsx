@@ -1,6 +1,7 @@
 import ProgressCircle from "@/components/common/ProgressCircle";
 import { CreateTask, CreateTaskSchema } from "@/features/tasks/api/createTask";
-import { useGetOneTask, useGetOneUserTask } from "@/features/tasks/api/getListTask";
+import { useGetOneUserTask } from "@/features/tasks/api/getListTask";
+import { useGetTaskLogs } from "@/features/tasks/api/getLogs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -10,7 +11,7 @@ import { useForm } from "react-hook-form";
 const TaskListPage = () => {
   const { query } = useRouter();
   const { data } = useGetOneUserTask(query.id as string);
-
+  const { data: logData } = useGetTaskLogs(query.id as string);
   const { register, handleSubmit, setValue, getValues, watch } =
     useForm<CreateTask>({
       resolver: zodResolver(CreateTaskSchema),
@@ -94,39 +95,30 @@ const TaskListPage = () => {
           </button>
         </div>
 
-        <div className="my-2 flex w-full items-center rounded-xl bg-white px-5 py-3">
-          <p className="mr-5 mt-1 flex flex-col text-center font-semibold text-accent">
-            <span className="text-3xl">6</span> <span>times</span>
-          </p>
-          <div>
-            <span className="mt-1 block">You have completed this activity</span>
-            <span className="block">this week</span>
-          </div>
-        </div>
-
-        <section className="flex w-full flex-col items-center rounded-xl bg-white bg-confetti bg-cover bg-no-repeat p-5">
+        <section className="flex w-full flex-col items-center rounded-xl bg-white bg-confetti bg-cover bg-no-repeat p-5 mt-5">
           <h1 className="self-start text-xl font-semibold">Goal preview</h1>
           <div className="flex w-full justify-between px-10">
             <div className="flex flex-col items-center p-1">
               <ProgressCircle
-                value={80}
                 max={100}
+                value={100}
                 size={100}
+                text={String(logData?.data)}
                 strokeWidth={11}
-                fontSize={25}
                 color="black"
+                fontSize={35}
               />
-              <span className="mt-2 block font-semibold">Progress</span>
+              <span className="mt-2 block font-semibold">Times this week</span>
             </div>
 
             <div className="flex flex-col items-center p-1">
               <ProgressCircle
-                value={80}
+                value={100}
                 max={100}
                 size={100}
                 strokeWidth={11}
                 color="black"
-                text="5"
+                text={String(data?.data?.streak)}
                 fontSize={35}
               />
               <span className="mt-2 block text-center font-semibold">

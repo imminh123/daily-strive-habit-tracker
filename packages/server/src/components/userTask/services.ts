@@ -18,7 +18,10 @@ export class UserTaskServices {
    */
 
   getUserTasks = (userId: string): Promise<IUserTask[] | null> => {
-    return this.userTaskRepository.find({user: userId}, { sort: { createdAt: -1 } });
+    return this.userTaskRepository.find(
+      { user: userId },
+      { sort: { createdAt: -1 } },
+    );
   };
 
   getUserTask = (id: string): Promise<IUserTask | null> => {

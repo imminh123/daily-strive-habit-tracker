@@ -11,9 +11,10 @@ export class TaskController {
    */
   static getTasks = async (req: Req, res: Res, next: NextFn) => {
     try {
+      const search = req.query.q;
       const taskServices = new TaskServices();
       const result = await taskServices.getTasks({
-        topic: new Types.ObjectId(req.query.topicId as string),
+        ...(search && { name: { $regex: search, $options: "i" } }),
       });
 
       res.status(OK).json(apiResponse(result));
