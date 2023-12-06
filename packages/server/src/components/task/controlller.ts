@@ -15,7 +15,9 @@ export class TaskController {
       const topicId = req.query.topicId;
       const taskServices = new TaskServices();
       const result = await taskServices.getTasks({
-        ...(topicId && {topic: new Types.ObjectId(req.query.topicId as string)}),
+        ...(topicId && {
+          topic: new Types.ObjectId(req.query.topicId as string),
+        }),
         ...(search && { name: { $regex: search, $options: "i" } }),
       });
 

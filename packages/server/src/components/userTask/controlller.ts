@@ -156,9 +156,18 @@ export class UserTaskController {
   static deleteUserTask = async (req: Req, res: Res, next: NextFn) => {
     try {
       const userTaskServices = new UserTaskServices();
-      console.log("🚀 ~ file: controlller.ts:160 ~ UserTaskController ~ staticdeleteUserTask ~ req.params.id:", req.params.id)
-      console.log("🚀 ~ file: controlller.ts:160 ~ UserTaskController ~ staticdeleteUserTask ~ req.params.id:", req.params.id)
-      console.log("🚀 ~ file: controlller.ts:160 ~ UserTaskController ~ staticdeleteUserTask ~ req.params.id:", req.params.id)
+      console.log(
+        "🚀 ~ file: controlller.ts:160 ~ UserTaskController ~ staticdeleteUserTask ~ req.params.id:",
+        req.params.id,
+      );
+      console.log(
+        "🚀 ~ file: controlller.ts:160 ~ UserTaskController ~ staticdeleteUserTask ~ req.params.id:",
+        req.params.id,
+      );
+      console.log(
+        "🚀 ~ file: controlller.ts:160 ~ UserTaskController ~ staticdeleteUserTask ~ req.params.id:",
+        req.params.id,
+      );
       const result = await userTaskServices.deleteUserTask(req.params.id);
 
       res.status(OK).json(apiResponse(result));
