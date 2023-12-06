@@ -48,8 +48,8 @@ import {
         2023,
         10,
         25,
-        getValues("hour"),
-        getValues("minute"),
+        Number(getValues("hour")),
+        Number(getValues("minute")),
       );
       setValue("notificationTime", notificationTime);
     }, [getValues("hour"), getValues("minute")]);
